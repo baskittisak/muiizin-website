@@ -35,10 +35,10 @@ const TypoContainer = styled(Typo)`
 `;
 
 const Typography = ({
-  fontSize = 28,
-  lineHeight = 30,
+  fontSize = 18,
+  lineHeight = 20,
   fontWeight = 400,
-  color = "var(--black-200)",
+  color = "#4F4F4F",
   whiteSpace = "pre",
   textShadow,
   spacing,

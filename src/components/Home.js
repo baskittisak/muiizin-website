@@ -1,10 +1,12 @@
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
+import Navbar from "../center_components/layout/Navbar";
 
 const Home = () => {
-  const { t: translate } = useTranslation();
-
-  return <>{translate("welcome")}</>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 
 export default memo(Home);
