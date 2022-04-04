@@ -1,5 +1,10 @@
-function App() {
-  return <>Hello Muiizin</>;
-}
+import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
-export default App;
+const App = () => {
+  const { t: translate } = useTranslation();
+
+  return <>{translate("welcome")}</>;
+};
+
+export default memo(App);
