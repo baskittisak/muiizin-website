@@ -1,5 +1,5 @@
 import { memo } from "react";
-import PageRoutes from "./PageRoutes";
+import PageRoutes from "./resource/PageRoutes";
 
 const App = () => {
   return <PageRoutes />;

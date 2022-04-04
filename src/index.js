@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { I18nextProvider } from "react-i18next";
 import "./styles/index.css";
-import App from "./resource/App";
+import App from "./App";
 import i18n from "./resource/i18n";
 import reportWebVitals from "./resource/reportWebVitals";
 
