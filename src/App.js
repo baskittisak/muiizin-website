@@ -1,10 +1,8 @@
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
+import PageRoutes from "./resource/PageRoutes";
 
 const App = () => {
-  const { t: translate } = useTranslation();
-
-  return <>{translate("welcome")}</>;
+  return <PageRoutes />;
 };
 
 export default memo(App);
