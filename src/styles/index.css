@@ -3,7 +3,7 @@
 @font-face {
   font-family: "DB Adman X";
   src: local("DB Adman X"),
-    url("../src/assets/fonts/DB Adman X.ttf") format("truetype");
+    url("../assets/fonts/DB Adman X.ttf") format("truetype");
 }
 
 html,
