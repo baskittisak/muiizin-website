@@ -4,10 +4,13 @@ import Navbar from "../../center_components/layout/Navbar";
 import Banner from "./Banner";
 import Quote from "./Quote";
 import Story from "./Story";
+import ShortListProduct from "../../center_components/product/ShortListProduct";
 
 const Container = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
+  max-width: 1440px;
+  margin: auto;
 
   ::-webkit-scrollbar {
     display: none;
@@ -21,6 +24,7 @@ const Home = () => {
       <Banner />
       <Quote />
       <Story />
+      <ShortListProduct title="New arrivals" />
     </Container>
   );
 };
