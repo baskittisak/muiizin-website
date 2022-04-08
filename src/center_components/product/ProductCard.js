@@ -38,7 +38,7 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
         <Space direction="vertical" size={5}>
           <Space direction="vertical" size={14}>
             <ImageContainer justify="center" align="center">
-              <Image src={image} preview={false} width={225} height={200} />
+              <Image src={image} preview={false} width={200} height={200} />
             </ImageContainer>
             <TextOverFlow>
               <Typography fontWeight={700} whiteSpace="initial">
