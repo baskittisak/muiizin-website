@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { Image } from "antd";
 import banner_image from "../../assets/image/mock_banner.png";
 
+const Container = styled.div`
+  margin-top: 120px;
+`;
+
 const ImageContainer = styled(Image)`
   width: 100%;
   height: calc(100vh - 120px);
@@ -11,9 +15,9 @@ const ImageContainer = styled(Image)`
 
 const Banner = () => {
   return (
-    <>
+    <Container>
       <ImageContainer src={banner_image} preview={false} />
-    </>
+    </Container>
   );
 };
 

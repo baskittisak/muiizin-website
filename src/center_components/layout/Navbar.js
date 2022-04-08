@@ -11,7 +11,11 @@ import logo_muizin_green from "../../assets/image/logo_muizin_green.png";
 const NavbarContainer = styled(Row)`
   background-color: #fff;
   height: 120px;
+  width: 100%;
+  z-index: 5;
   align-items: center;
+  position: fixed;
+  top: 0;
 `;
 
 const MENU_NAVBAR = [
