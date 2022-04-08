@@ -8,6 +8,7 @@ const TypoContainer = styled(Typo)`
   line-height: ${({ height }) => `${height}px`};
   font-weight: ${({ weight }) => weight};
   color: ${({ color }) => color};
+  letter-spacing: ${({ spacing }) => spacing};
 
   ${({ shadow }) =>
     shadow &&
@@ -15,16 +16,16 @@ const TypoContainer = styled(Typo)`
       text-shadow: ${shadow};
     `};
 
-  ${({ spacing }) =>
-    spacing &&
-    css`
-      letter-spacing: ${spacing};
-    `};
-
   ${({ uppercase }) =>
     uppercase &&
     css`
       text-transform: uppercase;
+    `};
+
+  ${({ fontStyle }) =>
+    fontStyle &&
+    css`
+      font-style: ${fontStyle};
     `};
 
   ${({ onClick }) =>
@@ -43,6 +44,7 @@ const Typography = ({
   textShadow,
   spacing,
   uppercase,
+  fontStyle,
   children,
   onClick,
 }) => {
@@ -56,6 +58,7 @@ const Typography = ({
       shadow={textShadow}
       spacing={spacing}
       uppercase={uppercase ? 1 : 0}
+      fontStyle={fontStyle}
       onClick={onClick && onClick}
     >
       {children}
