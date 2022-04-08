@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../components/Home";
+import Home from "../components/home/Home";
 
 const PageRoutes = () => {
   return (
