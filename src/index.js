@@ -1,6 +1,8 @@
 import ReactDOM from "react-dom/client";
 import { I18nextProvider } from "react-i18next";
 import "./styles/index.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import App from "./App";
 import i18n from "./resource/i18n";
 import reportWebVitals from "./resource/reportWebVitals";
