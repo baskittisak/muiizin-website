@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
 import Navbar from "../../center_components/layout/Navbar";
+import Footer from "../../center_components/layout/Footer";
 import Banner from "./Banner";
 import Quote from "./Quote";
 import Story from "./Story";
@@ -25,6 +26,7 @@ const Home = () => {
       <Quote />
       <Story />
       <ShortListProduct title="New arrivals" />
+      <Footer />
     </Container>
   );
 };
