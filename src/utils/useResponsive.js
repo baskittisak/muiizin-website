@@ -22,14 +22,14 @@ export const useResponsive = () => {
   }, []);
 
   const breakpointType = useMemo(() => {
-    const xxl = width > 1600 ? 1 : 0;
-    const xl = width <= 1600 ? 1 : 0;
-    const lg = width <= 1200 ? 1 : 0;
-    const md = width <= 992 ? 1 : 0;
-    const sm = width <= 768 ? 1 : 0;
-    const xs = width <= 576 ? 1 : 0;
-    const se = height <= 580 ? 1 : 0;
-    const mediumScreen = md && !sm;
+    const xxl = width > 1600;
+    const xl = width <= 1600;
+    const lg = width <= 1200;
+    const md = width <= 992;
+    const sm = width <= 768;
+    const xs = width <= 576;
+    const se = height <= 580;
+
     return {
       width,
       height,
@@ -40,7 +40,6 @@ export const useResponsive = () => {
       sm,
       xs,
       se,
-      mediumScreen,
     };
   }, [height, width]);
 
