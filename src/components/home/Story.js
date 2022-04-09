@@ -1,5 +1,6 @@
 import { memo } from "react";
-import styled from "styled-components";
+import { useResponsive } from "../../utils/useResponsive";
+import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
 import Typography from "../../center_components/Typography";
 import Icon from "@ant-design/icons";
@@ -12,6 +13,13 @@ const StoryContainer = styled(Box)`
   padding: 120px 240px;
   background-color: #d9e3d9;
   text-align: center;
+
+  ${({ sm }) =>
+    sm &&
+    css`
+      height: 200px;
+      padding: 52px 17px;
+    `};
 `;
 
 const IconFlower = styled(Icon)`
@@ -26,18 +34,20 @@ const IconFlower = styled(Icon)`
 `;
 
 const Story = () => {
+  const { sm } = useResponsive();
+
   return (
-    <StoryContainer justify="center" align="center">
+    <StoryContainer justify="center" align="center" sm={sm}>
       <IconFlower
         component={flower_icon}
-        size={125}
+        size={sm ? 35 : 125}
         deg="35deg"
-        top={35}
-        left={35}
+        top={sm ? 8 : 35}
+        left={sm ? 5 : 35}
       />
       <Typography
-        fontSize={36}
-        lineHeight={45}
+        fontSize={sm ? 15 : 36}
+        lineHeight={sm ? 24 : 45}
         color="#044700"
         whiteSpace="initial"
       >
@@ -49,9 +59,9 @@ const Story = () => {
       </Typography>
       <IconFlower
         component={flower_icon}
-        size={180}
+        size={sm ? 45 : 180}
         deg="-43deg"
-        bottom={40}
+        bottom={sm ? 12 : 40}
         right={5}
       />
     </StoryContainer>
