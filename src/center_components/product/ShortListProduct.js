@@ -21,6 +21,12 @@ const RowContainer = styled(Row)`
     display: flex;
     justify-content: center;
   }
+
+  ${({ sm }) =>
+    sm &&
+    css`
+      padding: 52px 0 44px;
+    `};
 `;
 
 const Line = styled.div`
@@ -54,17 +60,26 @@ const ViewMore = styled.div`
   border-right: 0;
   text-align: center;
   margin: 50px auto 0;
+
+  ${({ sm }) =>
+    sm &&
+    css`
+      width: 94px;
+      padding: 13px 0;
+      margin: 30px auto 0;
+    `};
 `;
 
 const SliderScroll = styled(Space)`
   width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
+  align-items: flex-start;
 `;
 
 const ShortListProduct = ({ title }) => {
   const { language } = useLanguage();
-  const { width, md } = useResponsive();
+  const { width, md, sm } = useResponsive();
   const slider = useRef();
 
   const sliderNumber = useMemo(() => {
@@ -88,14 +103,14 @@ const ShortListProduct = ({ title }) => {
   );
 
   return (
-    <RowContainer>
+    <RowContainer sm={sm}>
       <Col span={20} offset={2}>
         <Title justify={md ? "center" : "space-between"} align="center">
-          <Space direction="vertical" size={0}>
+          <Space direction="vertical" size={sm ? 3 : 0}>
             <Typography
-              fontSize={28}
+              fontSize={sm ? 20 : 28}
               fontWeight={700}
-              lineHeight={30}
+              lineHeight={sm ? 22 : 30}
               color="#044700"
               uppercase
             >
@@ -130,8 +145,13 @@ const ShortListProduct = ({ title }) => {
           </Slider>
         )}
         {md && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
-        <ViewMore>
-          <Typography fontWeight={700} color="#044700" uppercase>
+        <ViewMore sm={sm}>
+          <Typography
+            fontSize={sm ? 12 : 18}
+            fontWeight={700}
+            color="#044700"
+            uppercase
+          >
             View More
           </Typography>
         </ViewMore>
