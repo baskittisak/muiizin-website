@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
-import styled from "styled-components";
+import { useResponsive } from "../../utils/useResponsive";
+import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
 import { Image, Row, Col, Space } from "antd";
 import quote_image from "../../assets/image/mock_bamboo.jpg";
@@ -40,9 +41,17 @@ const QuoteContent = styled(Box)`
   position: absolute;
   right: 0;
   text-align: center;
+
+  ${({ xxl }) =>
+    xxl &&
+    css`
+      width: 80%;
+    `};
 `;
 
 const Quote = () => {
+  const { xxl } = useResponsive();
+
   const propsTitle = useMemo(
     () => ({
       fontSize: 96,
@@ -65,7 +74,7 @@ const Quote = () => {
               <Typography {...propsTitle}>NATURE</Typography>
             </QuoteTitle>
           </ImageWrapper>
-          <QuoteContent justify="center" align="center">
+          <QuoteContent justify="center" align="center" xxl={xxl}>
             <Typography
               fontStyle="italic"
               fontSize={24}
