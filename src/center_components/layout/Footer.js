@@ -9,7 +9,6 @@ import { ReactComponent as instagram_icon } from "../../assets/icons/instagram.s
 
 const FooterContainer = styled(Row)`
   height: 125px;
-  max-width: 1440px;
   background-color: #f7f7f7;
   padding: 50px 0;
 

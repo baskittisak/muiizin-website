@@ -7,10 +7,8 @@ import Typography from "../../center_components/Typography";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
-  max-width: 1440px;
   width: 100%;
   padding: 100px 0;
-  margin: auto;
 `;
 
 const BoxContainer = styled(Box)`

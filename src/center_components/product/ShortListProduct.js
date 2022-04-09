@@ -13,10 +13,8 @@ import ProductCard from "./ProductCard";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
-  max-width: 1440px;
   width: 100%;
   padding: 100px 0 150px;
-  margin: auto;
 `;
 
 const Line = styled.div`

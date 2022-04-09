@@ -10,8 +10,6 @@ import ShortListProduct from "../../center_components/product/ShortListProduct";
 const Container = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
-  max-width: 1440px;
-  margin: auto;
 
   ::-webkit-scrollbar {
     display: none;

@@ -12,7 +12,6 @@ const NavbarContainer = styled(Row)`
   background-color: #fff;
   height: 120px;
   width: 100%;
-  max-width: 1440px;
   z-index: 5;
   align-items: center;
   position: fixed;
