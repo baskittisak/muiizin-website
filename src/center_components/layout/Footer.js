@@ -37,6 +37,7 @@ const Footer = () => {
           © 2022 Muiizin Co., Ltd
         </Typography>
       </Col>
+      <Col span={2} />
     </FooterContainer>
   );
 };

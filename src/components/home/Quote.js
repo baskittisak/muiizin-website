@@ -91,6 +91,7 @@ const Quote = () => {
           </QuoteContent>
         </BoxContainer>
       </Col>
+      <Col span={2} />
     </RowContainer>
   );
 };

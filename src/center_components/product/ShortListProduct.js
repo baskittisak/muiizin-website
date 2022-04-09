@@ -136,6 +136,7 @@ const ShortListProduct = ({ title }) => {
           </Typography>
         </ViewMore>
       </Col>
+      <Col span={2} />
     </RowContainer>
   );
 };
