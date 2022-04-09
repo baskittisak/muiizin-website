@@ -47,7 +47,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { md } = useResponsive();
+  const { sm } = useResponsive();
 
   const desktopNavbar = useMemo(
     () => (
@@ -97,7 +97,7 @@ const Navbar = () => {
     []
   );
 
-  return md ? hamburgerMenu : desktopNavbar;
+  return sm ? hamburgerMenu : desktopNavbar;
 };
 
 export default memo(Navbar);
