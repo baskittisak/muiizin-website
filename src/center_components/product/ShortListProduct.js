@@ -1,5 +1,6 @@
-import { memo, useRef } from "react";
+import { memo, useMemo, useRef } from "react";
 import { useLanguage } from "../../utils/useLanguage";
+import { useResponsive } from "../../utils/useResponsive";
 import { productList } from "../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
@@ -15,6 +16,11 @@ const RowContainer = styled(Row)`
   background-color: #fff;
   width: 100%;
   padding: 100px 0 150px;
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const Line = styled.div`
@@ -50,14 +56,41 @@ const ViewMore = styled.div`
   margin: 50px auto 0;
 `;
 
+const SliderScroll = styled(Space)`
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+`;
+
 const ShortListProduct = ({ title }) => {
   const { language } = useLanguage();
+  const { width, md } = useResponsive();
   const slider = useRef();
+
+  const sliderNumber = useMemo(() => {
+    return width < 1024 ? 2 : width < 1350 ? 3 : 4;
+  }, [width]);
+
+  const displaProductList = useMemo(
+    () =>
+      productList.map((product) => (
+        <ProductCard
+          key={product.id}
+          image={product.image}
+          name={product.name[language]}
+          category={product.category[language]}
+          owner={product.owner[language]}
+          price={product.price}
+          newPrice={product?.newPrice}
+        />
+      )),
+    [language]
+  );
 
   return (
     <RowContainer>
       <Col span={20} offset={2}>
-        <Title justify="space-between" align="center">
+        <Title justify={md ? "center" : "space-between"} align="center">
           <Space direction="vertical" size={0}>
             <Typography
               fontSize={28}
@@ -68,36 +101,35 @@ const ShortListProduct = ({ title }) => {
             >
               {title}
             </Typography>
-            <Line />
+            <Line align={md && "center"} />
           </Space>
-          <Space size={12}>
-            <IconControl
-              component={arrow_active_icon}
-              deg="180deg"
-              onClick={() => slider?.current?.slickPrev()}
-            />
-            <Typography fontSize={36} lineHeight={39} color="#8FA29A">
-              |
-            </Typography>
-            <IconControl
-              component={arrow_active_icon}
-              onClick={() => slider?.current?.slickNext()}
-            />
-          </Space>
+          {!md && (
+            <Space size={12}>
+              <IconControl
+                component={arrow_active_icon}
+                deg="180deg"
+                onClick={() => slider?.current?.slickPrev()}
+              />
+              <Typography fontSize={36} lineHeight={39} color="#8FA29A">
+                |
+              </Typography>
+              <IconControl
+                component={arrow_active_icon}
+                onClick={() => slider?.current?.slickNext()}
+              />
+            </Space>
+          )}
         </Title>
-        <Slider ref={slider} slidesToShow={4} slidesToScroll={4}>
-          {productList.map((product) => (
-            <ProductCard
-              key={product.id}
-              image={product.image}
-              name={product.name[language]}
-              category={product.category[language]}
-              owner={product.owner[language]}
-              price={product.price}
-              newPrice={product?.newPrice}
-            />
-          ))}
-        </Slider>
+        {!md && (
+          <Slider
+            ref={slider}
+            slidesToShow={sliderNumber}
+            slidesToScroll={sliderNumber}
+          >
+            {displaProductList}
+          </Slider>
+        )}
+        {md && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
         <ViewMore>
           <Typography fontWeight={700} color="#044700" uppercase>
             View More
