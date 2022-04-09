@@ -1,6 +1,6 @@
 import { memo } from "react";
-import styled, { css } from "styled-components";
 import { useResponsive } from "../../utils/useResponsive";
+import styled, { css } from "styled-components";
 import { Image } from "antd";
 import banner_image from "../../assets/image/mock_banner.png";
 
