@@ -79,7 +79,7 @@ const SliderScroll = styled(Space)`
 
 const ShortListProduct = ({ title }) => {
   const { language } = useLanguage();
-  const { width, md, sm } = useResponsive();
+  const { width, sm } = useResponsive();
   const slider = useRef();
 
   const sliderNumber = useMemo(() => {
@@ -105,7 +105,7 @@ const ShortListProduct = ({ title }) => {
   return (
     <RowContainer sm={sm}>
       <Col span={20} offset={2}>
-        <Title justify={md ? "center" : "space-between"} align="center">
+        <Title justify={sm ? "center" : "space-between"} align="center">
           <Space direction="vertical" size={sm ? 3 : 0}>
             <Typography
               fontSize={sm ? 20 : 28}
@@ -116,9 +116,9 @@ const ShortListProduct = ({ title }) => {
             >
               {title}
             </Typography>
-            <Line align={md && "center"} />
+            <Line align={sm && "center"} />
           </Space>
-          {!md && (
+          {sm === 0 && (
             <Space size={12}>
               <IconControl
                 component={arrow_active_icon}
@@ -135,7 +135,7 @@ const ShortListProduct = ({ title }) => {
             </Space>
           )}
         </Title>
-        {!md && (
+        {sm === 0 && (
           <Slider
             ref={slider}
             slidesToShow={sliderNumber}
@@ -144,7 +144,7 @@ const ShortListProduct = ({ title }) => {
             {displaProductList}
           </Slider>
         )}
-        {md && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
+        {sm === 1 && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
         <ViewMore sm={sm}>
           <Typography
             fontSize={sm ? 12 : 18}
