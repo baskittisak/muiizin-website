@@ -26,7 +26,7 @@ export const useResponsive = () => {
     const xl = width <= 1600;
     const lg = width <= 1200;
     const md = width <= 992;
-    const sm = width <= 768;
+    const sm = width <= 768 ? 1 : 0;
     const xs = width <= 576;
     const se = height <= 580;
 
