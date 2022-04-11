@@ -15,6 +15,13 @@ const Container = styled.div`
     bottom: 0;
   }
 
+  ${({ md }) =>
+    md &&
+    css`
+      width: 162px;
+      height: 250px;
+    `};
+
   ${({ xs }) =>
     xs &&
     css`
@@ -27,6 +34,13 @@ const ImageContainer = styled(Box)`
   width: 280px;
   height: 290px;
   background-color: #f7f7f7;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 162px;
+      height: 162px;
+    `};
 
   ${({ xs }) =>
     xs &&
@@ -54,24 +68,24 @@ const SpaceNewPrice = styled(Space)`
 `;
 
 const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
-  const { xs } = useResponsive();
+  const { md, xs } = useResponsive();
 
   const propsDescription = useMemo(
     () => ({
-      fontSize: xs ? 10 : 14,
-      lineHeight: xs ? 11 : 15,
+      fontSize: md ? 10 : 14,
+      lineHeight: md ? 11 : 15,
       color: "#828282",
     }),
-    [xs]
+    [md]
   );
 
   const propsPrice = useMemo(
     () => ({
-      fontSize: xs ? 16 : 24,
-      lineHeight: xs ? 17 : 26,
+      fontSize: md ? 16 : 24,
+      lineHeight: md ? 17 : 26,
       fontWeight: 700,
     }),
-    [xs]
+    [md]
   );
 
   const displayPrice = useMemo(() => {
@@ -94,21 +108,22 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
   }, [newPrice, price, propsPrice, xs]);
 
   return (
-    <Container xs={xs}>
+    <Container md={md} xs={xs}>
       <Space direction="vertical" size={xs ? 0 : 10}>
-        <Space direction="vertical" size={xs ? 0 : 5}>
+        <Space direction="vertical" size={xs ? 0 : md ? 3 : 5}>
           <Space direction="vertical" size={xs ? 9 : 14}>
-            <ImageContainer justify="center" align="center" xs={xs}>
+            <ImageContainer justify="center" align="center" md={md} xs={xs}>
               <Image
                 src={image}
                 preview={false}
-                width={xs ? 140 : 200}
-                height={xs ? 140 : 200}
+                width={xs ? 140 : md ? 115 : 200}
+                height={xs ? 140 : md ? 115 : 200}
               />
             </ImageContainer>
             <TextOverFlow>
               <Typography
-                fontSize={xs ? 14 : 18}
+                fontSize={xs ? 14 : md ? 12 : 18}
+                lineHeight={xs ? 15 : md ? 13 : 20}
                 fontWeight={700}
                 whiteSpace="initial"
               >
