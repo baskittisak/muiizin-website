@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useResponsive } from "../../utils/useResponsive";
@@ -10,6 +10,7 @@ import Translation from "./Translation";
 import Icon from "@ant-design/icons";
 import { ReactComponent as hamburger_menu } from "../../assets/icons/hamburger_menu.svg";
 import logo_muizin_green from "../../assets/image/logo_muizin_green.png";
+import DrawerMenu from "./DrawerMenu";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
@@ -54,6 +55,7 @@ const Navbar = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const { md, xs } = useResponsive();
+  const [visible, setVisible] = useState(false);
 
   const desktopNavbar = useMemo(
     () => (
@@ -97,13 +99,22 @@ const Navbar = () => {
     () => (
       <HamburgerContainer align="center" justify="center">
         <Image src={logo_muizin_green} height={60} width={60} preview={false} />
-        <Icon component={hamburger_menu} />
+        <Icon component={hamburger_menu} onClick={() => setVisible(true)} />
       </HamburgerContainer>
     ),
     []
   );
 
-  return xs ? hamburgerMenu : desktopNavbar;
+  return (
+    <>
+      {xs ? hamburgerMenu : desktopNavbar}
+      <DrawerMenu
+        visible={visible}
+        menuList={MENU_NAVBAR}
+        onClose={() => setVisible(false)}
+      />
+    </>
+  );
 };
 
 export default memo(Navbar);
