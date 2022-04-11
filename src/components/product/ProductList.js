@@ -6,6 +6,12 @@ import Layout from "../../center_components/layout/Layout";
 const Container = styled.div`
   margin-top: 168px;
 
+  ${({ md }) =>
+    md &&
+    css`
+      margin-top: 100px;
+    `};
+
   ${({ xs }) =>
     xs &&
     css`
@@ -14,11 +20,11 @@ const Container = styled.div`
 `;
 
 const ProductList = () => {
-  const { xs } = useResponsive();
+  const { md, xs } = useResponsive();
 
   return (
     <Layout>
-      <Container xs={xs}>Product List</Container>
+      <Container md={md} xs={xs}>Product List</Container>
     </Layout>
   );
 };
