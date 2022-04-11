@@ -10,6 +10,7 @@ import Translation from "./Translation";
 import Icon from "@ant-design/icons";
 import { ReactComponent as hamburger_menu } from "../../assets/icons/hamburger_menu.svg";
 import logo_muizin_green from "../../assets/image/logo_muizin_green.png";
+import { css } from "styled-components";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
@@ -19,6 +20,12 @@ const RowContainer = styled(Row)`
   align-items: center;
   position: fixed;
   top: 0;
+
+  ${({ md }) =>
+    md &&
+    css`
+      height: 100px;
+    `};
 `;
 
 const HamburgerContainer = styled(Box)`
@@ -47,28 +54,28 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { xs } = useResponsive();
+  const { md, xs } = useResponsive();
 
   const desktopNavbar = useMemo(
     () => (
-      <RowContainer>
+      <RowContainer md={md}>
         <Col span={20} offset={2}>
           <Box justify="space-between" align="center">
             <Image
               src={logo_muizin_green}
-              height={100}
-              width={100}
+              width={md ? 80 : 100}
+              height={md ? 80 : 100}
               preview={false}
             />
-            <Space size={50}>
+            <Space size={md ? 40 : 50}>
               {MENU_NAVBAR.map((menu) => {
                 const { path, title } = menu;
                 const isActive = path === pathname;
                 return (
                   <Typography
                     key={path}
-                    fontSize={28}
-                    lineHeight={30}
+                    fontSize={md ? 20 : 28}
+                    lineHeight={md ? 22 : 30}
                     fontWeight={700}
                     color={isActive ? "#044700" : "#8FA29A"}
                     onClick={() => navigate(path)}
@@ -84,7 +91,7 @@ const Navbar = () => {
         <Col span={2} />
       </RowContainer>
     ),
-    [pathname, navigate, t]
+    [pathname, md, navigate, t]
   );
 
   const hamburgerMenu = useMemo(

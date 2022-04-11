@@ -1,23 +1,25 @@
 import { memo, useCallback } from "react";
 import { useLanguage } from "../../utils/useLanguage";
+import { useResponsive } from "../../utils/useResponsive";
 import { Space } from "antd";
 import Typography from "../Typography";
 
 const Translation = () => {
   const { language, onChangeLanguage } = useLanguage();
+  const { md } = useResponsive();
 
   const propMenu = useCallback(
     (active) => ({
-      fontSize: 28,
-      lineHeight: 30,
+      fontSize: md ? 20 : 28,
+      lineHeight:md ? 22 : 30,
       fontWeight: 700,
       color: active ? "#044700" : "#8FA29A",
     }),
-    []
+    [md]
   );
 
   return (
-    <Space size={10}>
+    <Space size={md ? 8 : 10}>
       <Typography
         {...propMenu(language === "en")}
         onClick={() => onChangeLanguage("en")}
