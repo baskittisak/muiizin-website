@@ -11,8 +11,8 @@ const RowContainer = styled(Row)`
   width: 100%;
   padding: 100px 0;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       padding: 48px 0;
     `};
@@ -30,8 +30,8 @@ const ImageContainer = styled(Image)`
   width: 650px;
   height: 600px;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       width: 355px;
       height: 285px;
@@ -45,8 +45,8 @@ const QuoteTitle = styled(Space)`
   top: 50%;
   transform: translateY(-50%);
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       text-align: center;
       left: 50%;
@@ -69,8 +69,8 @@ const QuoteContent = styled(Box)`
       width: 80%;
     `};
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       position: initial;
       width: 355px;
@@ -80,35 +80,35 @@ const QuoteContent = styled(Box)`
 `;
 
 const Quote = () => {
-  const { sm, xxl } = useResponsive();
+  const { xs, xxl } = useResponsive();
 
   const propsTitle = useMemo(
     () => ({
-      fontSize: sm ? 64 : 96,
+      fontSize: xs ? 64 : 96,
       fontWeight: 700,
-      lineHeight: sm ? 69 : 104,
+      lineHeight: xs ? 69 : 104,
       color: "#fff",
     }),
-    [sm]
+    [xs]
   );
 
   return (
-    <RowContainer sm={sm}>
-      <Col span={sm ? 22 : 20} offset={sm ? 1 : 2}>
-        <BoxContainer direction={sm && "column"} align="center">
+    <RowContainer xs={xs}>
+      <Col span={xs ? 22 : 20} offset={xs ? 1 : 2}>
+        <BoxContainer direction={xs && "column"} align="center">
           <ImageWrapper>
-            <ImageContainer src={quote_image} preview={false} sm={sm} />
-            <QuoteTitle direction="vertical" size={sm ? 10 : 40} sm={sm}>
+            <ImageContainer src={quote_image} preview={false} xs={xs} />
+            <QuoteTitle direction="vertical" size={xs ? 10 : 40} xs={xs}>
               <Typography {...propsTitle}>SIMPLE</Typography>
               <Typography {...propsTitle}>LOCAL</Typography>
               <Typography {...propsTitle}>NATURE</Typography>
             </QuoteTitle>
           </ImageWrapper>
-          <QuoteContent justify="center" align="center" xxl={xxl} sm={sm}>
+          <QuoteContent justify="center" align="center" xxl={xxl} xs={xs}>
             <Typography
               fontStyle="italic"
-              fontSize={sm ? 12 : 24}
-              lineHeight={sm ? 18 : 40}
+              fontSize={xs ? 12 : 24}
+              lineHeight={xs ? 18 : 40}
               color="#584207"
               whiteSpace="initial"
             >
@@ -121,7 +121,7 @@ const Quote = () => {
           </QuoteContent>
         </BoxContainer>
       </Col>
-      <Col span={sm ? 1 : 2} />
+      <Col span={xs ? 1 : 2} />
     </RowContainer>
   );
 };

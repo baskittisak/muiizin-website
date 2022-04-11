@@ -22,8 +22,8 @@ const RowContainer = styled(Row)`
     justify-content: center;
   }
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       padding: 52px 0 44px;
     `};
@@ -61,8 +61,8 @@ const ViewMore = styled.div`
   text-align: center;
   margin: 50px auto 0;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       width: 94px;
       padding: 13px 0;
@@ -79,7 +79,7 @@ const SliderScroll = styled(Space)`
 
 const ShortListProduct = ({ title }) => {
   const { language } = useLanguage();
-  const { width, sm } = useResponsive();
+  const { width, xs } = useResponsive();
   const slider = useRef();
 
   const sliderNumber = useMemo(() => {
@@ -103,22 +103,22 @@ const ShortListProduct = ({ title }) => {
   );
 
   return (
-    <RowContainer sm={sm}>
+    <RowContainer xs={xs}>
       <Col span={20} offset={2}>
-        <Title justify={sm ? "center" : "space-between"} align="center">
-          <Space direction="vertical" size={sm ? 3 : 0}>
+        <Title justify={xs ? "center" : "space-between"} align="center">
+          <Space direction="vertical" size={xs ? 3 : 0}>
             <Typography
-              fontSize={sm ? 20 : 28}
+              fontSize={xs ? 20 : 28}
               fontWeight={700}
-              lineHeight={sm ? 22 : 30}
+              lineHeight={xs ? 22 : 30}
               color="#044700"
               uppercase
             >
               {title}
             </Typography>
-            <Line align={sm && "center"} />
+            <Line align={xs && "center"} />
           </Space>
-          {sm === 0 && (
+          {xs === 0 && (
             <Space size={12}>
               <IconControl
                 component={arrow_active_icon}
@@ -135,7 +135,7 @@ const ShortListProduct = ({ title }) => {
             </Space>
           )}
         </Title>
-        {sm === 0 && (
+        {xs === 0 && (
           <Slider
             ref={slider}
             slidesToShow={sliderNumber}
@@ -144,10 +144,10 @@ const ShortListProduct = ({ title }) => {
             {displaProductList}
           </Slider>
         )}
-        {sm === 1 && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
-        <ViewMore sm={sm}>
+        {xs === 1 && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
+        <ViewMore xs={xs}>
           <Typography
-            fontSize={sm ? 12 : 18}
+            fontSize={xs ? 12 : 18}
             fontWeight={700}
             color="#044700"
             uppercase

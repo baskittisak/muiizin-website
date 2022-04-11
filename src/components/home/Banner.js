@@ -7,8 +7,8 @@ import banner_image from "../../assets/image/mock_banner.png";
 const Container = styled.div`
   margin-top: 120px;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       margin-top: 60px;
     `};
@@ -19,8 +19,8 @@ const ImageContainer = styled(Image)`
   height: calc(100vh - 120px);
   object-fit: cover;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       width: 100vh;
       height: 240px;
@@ -28,11 +28,11 @@ const ImageContainer = styled(Image)`
 `;
 
 const Banner = () => {
-  const { sm } = useResponsive();
+  const { xs } = useResponsive();
 
   return (
-    <Container sm={sm}>
-      <ImageContainer src={banner_image} preview={false} sm={sm} />
+    <Container xs={xs}>
+      <ImageContainer src={banner_image} preview={false} xs={xs} />
     </Container>
   );
 };

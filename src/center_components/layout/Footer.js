@@ -19,8 +19,8 @@ const FooterContainer = styled(Row)`
     justify-content: space-between;
   }
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       height: 70px;
       padding: 18px 0;
@@ -32,8 +32,8 @@ const FooterContainer = styled(Row)`
 `;
 
 const SpaceSocial = styled(Space)`
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       margin-bottom: 8px;
     `};
@@ -43,27 +43,27 @@ const IconSocial = styled(Icon)`
   cursor: pointer;
   font-size: 28px;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       font-size: 14px;
     `};
 `;
 
 const Footer = () => {
-  const { sm } = useResponsive();
+  const { xs } = useResponsive();
 
   return (
-    <FooterContainer sm={sm}>
+    <FooterContainer xs={xs}>
       <Col span={20} offset={2}>
-        <SpaceSocial size={sm ? 15 : 40} sm={sm}>
-          <IconSocial component={facebook_icon} sm={sm} />
-          <IconSocial component={line_icon} sm={sm} />
-          <IconSocial component={instagram_icon} sm={sm} />
+        <SpaceSocial size={xs ? 15 : 40} xs={xs}>
+          <IconSocial component={facebook_icon} xs={xs} />
+          <IconSocial component={line_icon} xs={xs} />
+          <IconSocial component={instagram_icon} xs={xs} />
         </SpaceSocial>
         <Typography
-          fontSize={sm ? 12 : 24}
-          lineHeight={sm ? 13 : 26}
+          fontSize={xs ? 12 : 24}
+          lineHeight={xs ? 13 : 26}
           color="#044700"
         >
           © 2022 Muiizin Co., Ltd

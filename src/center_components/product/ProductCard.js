@@ -15,8 +15,8 @@ const Container = styled.div`
     bottom: 0;
   }
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       width: 170px;
       height: 295px;
@@ -28,8 +28,8 @@ const ImageContainer = styled(Box)`
   height: 290px;
   background-color: #f7f7f7;
 
-  ${({ sm }) =>
-    sm &&
+  ${({ xs }) =>
+    xs &&
     css`
       width: 170px;
       height: 200px;
@@ -54,24 +54,24 @@ const SpaceNewPrice = styled(Space)`
 `;
 
 const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
-  const { sm } = useResponsive();
+  const { xs } = useResponsive();
 
   const propsDescription = useMemo(
     () => ({
-      fontSize: sm ? 10 : 14,
-      lineHeight: sm ? 11 : 15,
+      fontSize: xs ? 10 : 14,
+      lineHeight: xs ? 11 : 15,
       color: "#828282",
     }),
-    [sm]
+    [xs]
   );
 
   const propsPrice = useMemo(
     () => ({
-      fontSize: sm ? 16 : 24,
-      lineHeight: sm ? 17 : 26,
+      fontSize: xs ? 16 : 24,
+      lineHeight: xs ? 17 : 26,
       fontWeight: 700,
     }),
-    [sm]
+    [xs]
   );
 
   const displayPrice = useMemo(() => {
@@ -80,8 +80,8 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
         <SpaceNewPrice size={8}>
           <Typography {...propsPrice}>฿ {newPrice}</Typography>
           <Typography
-            fontSize={sm ? 12 : 16}
-            lineHeight={sm ? 11 : 17}
+            fontSize={xs ? 12 : 16}
+            lineHeight={xs ? 11 : 17}
             color="#BDBDBB"
           >
             ฿ {price}
@@ -91,24 +91,24 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
     } else {
       return <Typography {...propsPrice}>฿ {price}</Typography>;
     }
-  }, [newPrice, price, propsPrice, sm]);
+  }, [newPrice, price, propsPrice, xs]);
 
   return (
-    <Container sm={sm}>
-      <Space direction="vertical" size={sm ? 0 : 10}>
-        <Space direction="vertical" size={sm ? 0 : 5}>
-          <Space direction="vertical" size={sm ? 9 : 14}>
-            <ImageContainer justify="center" align="center" sm={sm}>
+    <Container xs={xs}>
+      <Space direction="vertical" size={xs ? 0 : 10}>
+        <Space direction="vertical" size={xs ? 0 : 5}>
+          <Space direction="vertical" size={xs ? 9 : 14}>
+            <ImageContainer justify="center" align="center" xs={xs}>
               <Image
                 src={image}
                 preview={false}
-                width={sm ? 140 : 200}
-                height={sm ? 140 : 200}
+                width={xs ? 140 : 200}
+                height={xs ? 140 : 200}
               />
             </ImageContainer>
             <TextOverFlow>
               <Typography
-                fontSize={sm ? 14 : 18}
+                fontSize={xs ? 14 : 18}
                 fontWeight={700}
                 whiteSpace="initial"
               >
