@@ -29,6 +29,7 @@ export const useResponsive = () => {
     const sm = width <= 768 ? 1 : 0;
     const xs = width <= 576 ? 1 : 0;
     const se = height <= 580 ? 1 : 0;
+    const pro = lg && height > 940 ? 1 : 0;
 
     return {
       width,
@@ -36,7 +37,7 @@ export const useResponsive = () => {
       xxl,
       xl,
       lg,
-      md,
+      md: md || pro,
       sm,
       xs,
       se,
