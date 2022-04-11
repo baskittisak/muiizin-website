@@ -2,7 +2,7 @@ import { memo, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useResponsive } from "../../utils/useResponsive";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
 import { Image, Row, Col, Space } from "antd";
 import Typography from "../Typography";
@@ -10,7 +10,6 @@ import Translation from "./Translation";
 import Icon from "@ant-design/icons";
 import { ReactComponent as hamburger_menu } from "../../assets/icons/hamburger_menu.svg";
 import logo_muizin_green from "../../assets/image/logo_muizin_green.png";
-import { css } from "styled-components";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
