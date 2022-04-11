@@ -11,6 +11,12 @@ const RowContainer = styled(Row)`
   width: 100%;
   padding: 100px 0;
 
+  ${({ md }) =>
+    md &&
+    css`
+      padding: 58px 0;
+    `};
+
   ${({ xs }) =>
     xs &&
     css`
@@ -29,6 +35,13 @@ const ImageWrapper = styled.div`
 const ImageContainer = styled(Image)`
   width: 650px;
   height: 600px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 376.46px;
+      height: 348.75px;
+    `};
 
   ${({ xs }) =>
     xs &&
@@ -69,6 +82,13 @@ const QuoteContent = styled(Box)`
       width: 80%;
     `};
 
+  ${({ md }) =>
+    md &&
+    css`
+      height: 280px;
+      padding: 90px 13px;
+    `};
+
   ${({ xs }) =>
     xs &&
     css`
@@ -80,35 +100,41 @@ const QuoteContent = styled(Box)`
 `;
 
 const Quote = () => {
-  const { xs, xxl } = useResponsive();
+  const { xxl, md, xs } = useResponsive();
 
   const propsTitle = useMemo(
     () => ({
-      fontSize: xs ? 64 : 96,
+      fontSize: xs ? 64 : md ? 56 : 96,
       fontWeight: 700,
-      lineHeight: xs ? 69 : 104,
+      lineHeight: xs ? 69 : md ? 61 : 104,
       color: "#fff",
     }),
-    [xs]
+    [md, xs]
   );
 
   return (
-    <RowContainer xs={xs}>
+    <RowContainer md={md} xs={xs}>
       <Col span={xs ? 22 : 20} offset={xs ? 1 : 2}>
         <BoxContainer direction={xs && "column"} align="center">
           <ImageWrapper>
-            <ImageContainer src={quote_image} preview={false} xs={xs} />
+            <ImageContainer src={quote_image} preview={false} md={md} xs={xs} />
             <QuoteTitle direction="vertical" size={xs ? 10 : 40} xs={xs}>
               <Typography {...propsTitle}>SIMPLE</Typography>
               <Typography {...propsTitle}>LOCAL</Typography>
               <Typography {...propsTitle}>NATURE</Typography>
             </QuoteTitle>
           </ImageWrapper>
-          <QuoteContent justify="center" align="center" xxl={xxl} xs={xs}>
+          <QuoteContent
+            justify="center"
+            align="center"
+            xxl={xxl}
+            md={md}
+            xs={xs}
+          >
             <Typography
               fontStyle="italic"
-              fontSize={xs ? 12 : 24}
-              lineHeight={xs ? 18 : 40}
+              fontSize={xs ? 12 : md ? 14 : 24}
+              lineHeight={xs ? 18 : md ? 24 : 40}
               color="#584207"
               whiteSpace="initial"
             >
