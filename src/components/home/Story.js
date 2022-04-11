@@ -14,6 +14,13 @@ const StoryContainer = styled(Box)`
   background-color: #d9e3d9;
   text-align: center;
 
+  ${({ md }) =>
+    md &&
+    css`
+      height: 245px;
+      padding: 60px 178px;
+    `};
+
   ${({ xs }) =>
     xs &&
     css`
@@ -34,20 +41,20 @@ const IconFlower = styled(Icon)`
 `;
 
 const Story = () => {
-  const { xs } = useResponsive();
+  const { md, xs } = useResponsive();
 
   return (
-    <StoryContainer justify="center" align="center" xs={xs}>
+    <StoryContainer justify="center" align="center" md={md} xs={xs}>
       <IconFlower
         component={flower_icon}
-        size={xs ? 35 : 125}
+        size={xs ? 35 : md ? 68 : 125}
         deg="35deg"
-        top={xs ? 8 : 35}
-        left={xs ? 5 : 35}
+        top={xs ? 8 : md ? 20 : 35}
+        left={xs ? 5 : md ? 22 : 35}
       />
       <Typography
-        fontSize={xs ? 15 : 36}
-        lineHeight={xs ? 24 : 45}
+        fontSize={xs ? 15 : md ? 18 : 36}
+        lineHeight={xs ? 24 : md ? 30 : 45}
         color="#044700"
         whiteSpace="initial"
       >
@@ -59,9 +66,9 @@ const Story = () => {
       </Typography>
       <IconFlower
         component={flower_icon}
-        size={xs ? 45 : 180}
+        size={xs ? 45 : md ? 92 : 180}
         deg="-43deg"
-        bottom={xs ? 12 : 40}
+        bottom={xs ? 12 : md ? 20 : 40}
         right={5}
       />
     </StoryContainer>
