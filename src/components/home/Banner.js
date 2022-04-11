@@ -1,11 +1,14 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useResponsive } from "../../utils/useResponsive";
 import styled, { css } from "styled-components";
 import { Image } from "antd";
 import banner_image from "../../assets/image/mock_banner.png";
+import DrawerProduct from "./DrawerProduct";
 
 const Container = styled.div`
   margin-top: 120px;
+  text-align: center;
+  cursor: pointer;
 
   ${({ md }) =>
     md &&
@@ -28,24 +31,30 @@ const ImageContainer = styled(Image)`
   ${({ md }) =>
     md &&
     css`
-      width: 100vh;
       height: 350px;
     `};
 
   ${({ xs }) =>
     xs &&
     css`
-      width: 100vh;
       height: 240px;
     `};
 `;
 
 const Banner = () => {
   const { md, xs } = useResponsive();
+  const [visible, setVisible] = useState(false);
 
   return (
     <Container md={md} xs={xs}>
-      <ImageContainer src={banner_image} preview={false} md={md} xs={xs} />
+      <ImageContainer
+        src={banner_image}
+        preview={false}
+        md={md}
+        xs={xs}
+        onClick={() => setVisible(true)}
+      />
+      <DrawerProduct visible={visible} onClose={() => setVisible(false)} />
     </Container>
   );
 };

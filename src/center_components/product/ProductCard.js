@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import { useResponsive } from "../../utils/useResponsive";
 import styled, { css } from "styled-components";
-import { Box } from "../../styles/common";
+import { Box, TextOverFlow } from "../../styles/common";
 import { Image, Space } from "antd";
 import Typography from "../Typography";
 
@@ -50,15 +50,6 @@ const ImageContainer = styled(Box)`
     `};
 `;
 
-const TextOverFlow = styled.span`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-`;
-
 const SpaceNewPrice = styled(Space)`
   align-items: baseline;
 
@@ -95,7 +86,7 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
           <Typography {...propsPrice}>฿ {newPrice}</Typography>
           <Typography
             fontSize={xs ? 12 : 16}
-            lineHeight={xs ? 11 : 17}
+            lineHeight={xs ? 13 : 17}
             color="#BDBDBB"
           >
             ฿ {price}
