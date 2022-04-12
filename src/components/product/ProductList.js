@@ -31,6 +31,11 @@ const ColFilters = styled(Col)`
   padding-right: 60px;
 `;
 
+const ColProduct = styled(Col)`
+  display: flex;
+  justify-content: center;
+`;
+
 const HeaderList = styled(Box)`
   margin-bottom: 25px;
 `;
@@ -103,7 +108,7 @@ const ProductList = () => {
                 </HeaderList>
                 <Row gutter={[md ? 20 : 30, md ? 20 : 30]}>
                   {productList.map((product) => (
-                    <Col span={8} key={product.id}>
+                    <ColProduct span={8} key={product.id}>
                       <ProductCard
                         image={product.image}
                         name={product.name[language]}
@@ -112,7 +117,7 @@ const ProductList = () => {
                         price={product.price}
                         newPrice={product?.newPrice}
                       />
-                    </Col>
+                    </ColProduct>
                   ))}
                 </Row>
                 <FooterList justify="space-between" align="center">
