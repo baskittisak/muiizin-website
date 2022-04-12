@@ -33,7 +33,7 @@ const ColFilters = styled(Col)`
   ${({ is_md }) =>
     is_md &&
     css`
-      padding-right: 20px;
+      padding-right: 30px;
     `};
 `;
 

@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+import { useResponsive } from "../../../utils/useResponsive";
 import styled from "styled-components";
 import { Space } from "antd";
 import Search from "./Search";
@@ -12,6 +13,7 @@ const SpaceContainer = styled(Space)`
 `;
 
 const AllFilters = () => {
+  const { md } = useResponsive();
   const [search, setSearch] = useState("");
   const [categorieList, setCategorieList] = useState([]);
   const [price, setPrice] = useState([1, 1000]);
@@ -19,9 +21,9 @@ const AllFilters = () => {
   const [sizeList, setSizeList] = useState([]);
 
   return (
-    <SpaceContainer direction="vertical" size={30}>
+    <SpaceContainer direction="vertical" size={md ? 20 : 30}>
       <Search search={search} setSearch={setSearch} />
-      <SpaceContainer direction="vertical" size={40}>
+      <SpaceContainer direction="vertical" size={md ? 30 : 40}>
         <Categories
           categorieList={categorieList}
           setCategorieList={setCategorieList}

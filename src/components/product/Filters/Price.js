@@ -1,5 +1,6 @@
 import { memo, useCallback } from "react";
-import styled from "styled-components";
+import { useResponsive } from "../../../utils/useResponsive";
+import styled, { css } from "styled-components";
 import { Input, Slider, Space } from "antd";
 import FiltersCard from "./FiltersCard";
 import Typography from "../../../center_components/Typography";
@@ -38,20 +39,33 @@ const InputContainer = styled(Input)`
   :hover {
     border-color: #e0e0e0 !important;
   }
+
+  ${({ md }) =>
+    md &&
+    css`
+      padding: 4px;
+      font-size: 11px;
+      line-height: 12px;
+    `};
 `;
 
 const Price = ({ price, setPrice }) => {
-  const onSetPrice = useCallback((index, value) => {
-    setPrice((prevState) => {
-      const newPrice = [...prevState];
-      newPrice[index] = value;
-      return newPrice;
-    });
-  }, [setPrice]);
+  const { md } = useResponsive();
+
+  const onSetPrice = useCallback(
+    (index, value) => {
+      setPrice((prevState) => {
+        const newPrice = [...prevState];
+        newPrice[index] = value;
+        return newPrice;
+      });
+    },
+    [setPrice]
+  );
 
   return (
     <FiltersCard title="PRICE">
-      <SpaceContainer direction="vertical" size={20}>
+      <SpaceContainer direction="vertical" size={md ? 12 : 20}>
         <Range
           min={1}
           max={1000}
@@ -63,6 +77,7 @@ const Price = ({ price, setPrice }) => {
         />
         <SpaceContainer size={28}>
           <InputContainer
+            md={md}
             min={1}
             max={1000}
             type="number"
@@ -70,8 +85,8 @@ const Price = ({ price, setPrice }) => {
             onChange={(e) => onSetPrice(0, e.target.value)}
           />
           <Typography
-            fontSize={20}
-            lineHeight={22}
+            fontSize={md ? 12 : 20}
+            lineHeight={md ? 13 : 22}
             fontWeight={700}
             spacing="0.02em"
             color="#828282"
@@ -79,6 +94,7 @@ const Price = ({ price, setPrice }) => {
             to
           </Typography>
           <InputContainer
+            md={md}
             min={1}
             max={1000}
             type="number"

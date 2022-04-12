@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
-import styled from "styled-components";
+import { useResponsive } from "../utils/useResponsive";
+import styled, { css } from "styled-components";
 import { Box } from "../styles/common";
 import Icon from "@ant-design/icons";
 import { ReactComponent as correct_icon } from "../assets/icons/correct.svg";
@@ -15,26 +16,41 @@ const CheckboxContainer = styled(Box)`
   background: #e9e9e9;
   border-radius: 2px;
   margin-right: 10px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 8.68px;
+      height: 8.68px;
+    `};
 `;
 
 const IconCorrect = styled(Icon)`
   font-size: 12px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      font-size: 10px;
+    `};
 `;
 
 const Checkbox = ({ id, value, checked, total, onChange }) => {
+  const { md } = useResponsive();
+
   const isTotal = useMemo(() => {
     return total !== undefined;
   }, [total]);
 
   return (
     <Box justify={isTotal && "space-between"} align="center">
-      <CheckboxWrapper align="center" onClick={() => onChange(id)}>
+      <CheckboxWrapper align="center" onClick={() => onChange(id)} md={md}>
         <CheckboxContainer justify="center" align="center">
-          {checked && <IconCorrect component={correct_icon} />}
+          {checked && <IconCorrect component={correct_icon} md={md} />}
         </CheckboxContainer>
         <Typography
-          fontSize={20}
-          lineHeight={22}
+          fontSize={md ? 12 : 20}
+          lineHeight={md ? 13 : 22}
           fontWeight={checked ? 700 : 400}
           color={checked ? "#4F4F4F" : "#828282"}
         >
@@ -42,7 +58,11 @@ const Checkbox = ({ id, value, checked, total, onChange }) => {
         </Typography>
       </CheckboxWrapper>
       {isTotal && (
-        <Typography fontSize={20} lineHeight={22} color="#828282">
+        <Typography
+          fontSize={md ? 12 : 20}
+          lineHeight={md ? 13 : 22}
+          color="#828282"
+        >
           ({total})
         </Typography>
       )}
