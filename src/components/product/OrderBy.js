@@ -1,13 +1,24 @@
 import { memo, useMemo } from "react";
 import { useLanguage } from "../../utils/useLanguage";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Space, Menu, Dropdown } from "antd";
 import Icon from "@ant-design/icons";
 import { ReactComponent as dropdown_icon } from "../../assets/icons/dropdown.svg";
 import Typography from "../../center_components/Typography";
+import { useResponsive } from "../../utils/useResponsive";
 
 const DropdownContainer = styled(Dropdown)`
   cursor: pointer;
+`;
+
+const IconDropdown = styled(Icon)`
+  ${({ md }) =>
+    md &&
+    css`
+      font-size: 8px;
+      position: relative;
+      bottom: 1px;
+    `};
 `;
 
 const menuList = [
@@ -35,7 +46,9 @@ const menuList = [
 ];
 
 const OrderBy = ({ orderBy, setOrderBy }) => {
+  const { md } = useResponsive();
   const { language } = useLanguage();
+
   const menuActive = useMemo(() => {
     return menuList.find((menu) => menu.key === orderBy).value[language];
   }, [orderBy, language]);
@@ -46,9 +59,9 @@ const OrderBy = ({ orderBy, setOrderBy }) => {
         {menuList.map((menu) => (
           <Menu.Item key={menu.key} onClick={() => setOrderBy(menu.key)}>
             <Typography
-              fontSize={20}
+              fontSize={md ? 12 : 20}
+              lineHeight={md ? 13 : 22}
               fontWeight={orderBy === menu.key ? 700 : 400}
-              lineHeight={22}
               color="#044700"
             >
               {menu.value[language]}
@@ -57,25 +70,29 @@ const OrderBy = ({ orderBy, setOrderBy }) => {
         ))}
       </Menu>
     ),
-    [orderBy, language, setOrderBy]
+    [md, orderBy, language, setOrderBy]
   );
 
   return (
     <Space size={10}>
-      <Typography fontSize={20} lineHeight={22} color="#828282">
+      <Typography
+        fontSize={md ? 12 : 20}
+        lineHeight={md ? 13 : 22}
+        color="#828282"
+      >
         ORDER BY :
       </Typography>
       <DropdownContainer overlay={menuOverlay}>
         <Space size={15}>
           <Typography
-            fontSize={20}
+            fontSize={md ? 12 : 20}
+            lineHeight={md ? 13 : 22}
             fontWeight={700}
-            lineHeight={22}
             color="#044700"
           >
             {menuActive}
           </Typography>
-          <Icon component={dropdown_icon} />
+          <IconDropdown component={dropdown_icon} md={md} />
         </Space>
       </DropdownContainer>
     </Space>

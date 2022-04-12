@@ -48,6 +48,7 @@ const HeaderList = styled(Box)`
 
 const FooterList = styled(Box)`
   margin-top: 70px;
+  flex-wrap: wrap-reverse;
 `;
 
 const PaginationContainer = styled(Pagination)`
@@ -81,6 +82,12 @@ const PaginationContainer = styled(Pagination)`
     border: 1px solid #d9e3d9;
     color: #828282;
   }
+
+  ${({ wrap }) =>
+    wrap &&
+    css`
+      margin-top: 12px;
+    `};
 `;
 
 const ProductList = () => {
@@ -91,11 +98,16 @@ const ProductList = () => {
 
   const resultText = useMemo(
     () => (
-      <Typography fontSize={20} lineHeight={22} color="#828282" uppercase>
+      <Typography
+        fontSize={md ? 12 : 20}
+        lineHeight={md ? 13 : 22}
+        color="#828282"
+        uppercase
+      >
         showing 1-12 of 30 relults
       </Typography>
     ),
-    []
+    [md]
   );
 
   const spanProduct = useMemo(() => {
@@ -137,6 +149,7 @@ const ProductList = () => {
                 <FooterList justify="space-between" align="center">
                   <PaginationContainer
                     total={50}
+                    wrap={width <= 703}
                     defaultCurrent={page}
                     onChange={(page) => setPage(page)}
                   />
