@@ -6,18 +6,18 @@ import { Col, Row } from "antd";
 import AllFilters from "./Filters/AllFilters";
 
 const Container = styled.div`
-  margin: 216px 0 125px;
+  margin: 168px 0 125px;
 
   ${({ md }) =>
     md &&
     css`
-      margin: 140px 0 90px;
+      margin: 100px 0 90px;
     `};
 
   ${({ xs }) =>
     xs &&
     css`
-      margin: 90px 0 40px;
+      margin: 60px 0 40px;
     `};
 `;
 
