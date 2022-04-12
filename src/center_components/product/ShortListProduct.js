@@ -96,7 +96,7 @@ const SliderScroll = styled(Space)`
   align-items: flex-start;
 `;
 
-const ShortListProduct = ({ title }) => {
+const ShortListProduct = ({ title, hiddenViewMore }) => {
   const { language } = useLanguage();
   const { width, md, xs } = useResponsive();
   const slider = useRef();
@@ -176,17 +176,19 @@ const ShortListProduct = ({ title }) => {
           </Slider>
         )}
         {xs === 1 && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
-        <ViewMore md={md}>
-          <Typography
-            fontSize={md ? 12 : 18}
-            lineHeight={md ? 13 : 13}
-            fontWeight={700}
-            color="#044700"
-            uppercase
-          >
-            View More
-          </Typography>
-        </ViewMore>
+        {!hiddenViewMore && (
+          <ViewMore md={md}>
+            <Typography
+              fontSize={md ? 12 : 18}
+              lineHeight={md ? 13 : 13}
+              fontWeight={700}
+              color="#044700"
+              uppercase
+            >
+              View More
+            </Typography>
+          </ViewMore>
+        )}
       </Col>
       <Col span={2} />
     </RowContainer>
