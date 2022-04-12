@@ -9,10 +9,6 @@ import Size from "./Size";
 
 const SpaceContainer = styled(Space)`
   width: 100%;
-
-  .ant-space-item {
-    width: 100%;
-  }
 `;
 
 const AllFilters = () => {
