@@ -17,7 +17,7 @@ const SpaceContainer = styled(Space)`
 
 const AllFilters = () => {
   return (
-    <SpaceContainer direction="vertical" size={20}>
+    <SpaceContainer direction="vertical" size={30}>
       <Search />
       <SpaceContainer direction="vertical" size={40}>
         <Categories />
