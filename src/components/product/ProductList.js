@@ -78,7 +78,7 @@ const PaginationContainer = styled(Pagination)`
 `;
 
 const ProductList = () => {
-  const { md, xs } = useResponsive();
+  const { width, md, xs } = useResponsive();
   const { language } = useLanguage();
   const [orderBy, setOrderBy] = useState("asc");
   const [page, setPage] = useState(1);
@@ -91,6 +91,16 @@ const ProductList = () => {
     ),
     []
   );
+
+  const spanProduct = useMemo(() => {
+    return md && width >= 800
+      ? 8
+      : (md && (width < 600 || width >= 800)) || (!md && width < 1024)
+      ? 12
+      : (md && (width < 800 || width >= 600)) || (!md && width < 1320)
+      ? 12
+      : 8;
+  }, [width, md]);
 
   return (
     <Layout>
@@ -108,7 +118,7 @@ const ProductList = () => {
                 </HeaderList>
                 <Row gutter={[md ? 20 : 30, md ? 20 : 30]}>
                   {productList.map((product) => (
-                    <ColProduct span={8} key={product.id}>
+                    <ColProduct span={spanProduct} key={product.id}>
                       <ProductCard
                         image={product.image}
                         name={product.name[language]}
