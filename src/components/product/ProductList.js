@@ -35,6 +35,12 @@ const ColFilters = styled(Col)`
     css`
       padding-right: 30px;
     `};
+
+  ${({ is_xs }) =>
+    is_xs &&
+    css`
+      padding-right: 0;
+    `};
 `;
 
 const ColProduct = styled(Col)`
@@ -44,6 +50,13 @@ const ColProduct = styled(Col)`
 
 const HeaderList = styled(Box)`
   margin-bottom: 25px;
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      margin-bottom: 15px;
+      margin-top: 30px;
+    `};
 `;
 
 const FooterList = styled(Box)`
@@ -97,26 +110,29 @@ const ProductList = () => {
   const [page, setPage] = useState(1);
 
   const resultText = useMemo(
-    () => (
-      <Typography
-        fontSize={md ? 12 : 20}
-        lineHeight={md ? 13 : 22}
-        color="#828282"
-        uppercase
-      >
-        showing 1-12 of 30 relults
-      </Typography>
-    ),
-    [md]
+    () =>
+      xs ? null : (
+        <Typography
+          fontSize={md ? 12 : 20}
+          lineHeight={md ? 13 : 22}
+          color="#828282"
+          uppercase
+        >
+          showing 1-12 of 30 relults
+        </Typography>
+      ),
+    [md, xs]
   );
 
   const spanProduct = useMemo(() => {
-    return md && width >= 860
+    return xs && width <= 390
+      ? 24
+      : md && width >= 860
       ? 8
       : (md && (width < 860 || width >= 600)) || (!md && width < 1320)
       ? 12
       : 8;
-  }, [width, md]);
+  }, [width, md, xs]);
 
   return (
     <Layout>
@@ -124,11 +140,15 @@ const ProductList = () => {
         <Row>
           <Col span={20} offset={2}>
             <Row>
-              <ColFilters span={md ? 8 : 6} is_md={md || width < 1320 ? 1 : 0}>
+              <ColFilters
+                span={xs ? 24 : md ? 8 : 6}
+                is_md={md || width < 1320 ? 1 : 0}
+                is_xs={xs}
+              >
                 <AllFilters />
               </ColFilters>
-              <Col span={md ? 16 : 18}>
-                <HeaderList justify="space-between" align="center">
+              <Col span={xs ? 24 : md ? 16 : 18}>
+                <HeaderList justify="space-between" align="center" xs={xs}>
                   <OrderBy orderBy={orderBy} setOrderBy={setOrderBy} />
                   {resultText}
                 </HeaderList>
@@ -146,15 +166,17 @@ const ProductList = () => {
                     </ColProduct>
                   ))}
                 </Row>
-                <FooterList justify="space-between" align="center">
-                  <PaginationContainer
-                    total={50}
-                    wrap={width <= 703}
-                    defaultCurrent={page}
-                    onChange={(page) => setPage(page)}
-                  />
-                  {resultText}
-                </FooterList>
+                {xs === 0 && (
+                  <FooterList justify="space-between" align="center">
+                    <PaginationContainer
+                      total={50}
+                      wrap={width <= 703}
+                      defaultCurrent={page}
+                      onChange={(page) => setPage(page)}
+                    />
+                    {resultText}
+                  </FooterList>
+                )}
               </Col>
             </Row>
           </Col>

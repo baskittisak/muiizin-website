@@ -1,8 +1,13 @@
 import { useLanguage } from "../../../utils/useLanguage";
 import { memo, useCallback, useEffect } from "react";
+import styled from "styled-components";
 import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
 import FiltersCard from "./FiltersCard";
+
+const SpaceContainer = styled(Space)`
+  width: 100%;
+`;
 
 const categories = [
   {
@@ -60,7 +65,7 @@ const Categories = ({ categorieList, setCategorieList }) => {
 
   return (
     <FiltersCard title="CATEGORIES">
-      <Space direction="vertical" size={10}>
+      <SpaceContainer direction="vertical" size={10}>
         {categorieList.map((categorie) => (
           <Checkbox
             key={categorie.key}
@@ -70,7 +75,7 @@ const Categories = ({ categorieList, setCategorieList }) => {
             onChange={onChange}
           />
         ))}
-      </Space>
+      </SpaceContainer>
     </FiltersCard>
   );
 };
