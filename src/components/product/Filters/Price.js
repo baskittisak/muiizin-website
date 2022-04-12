@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback } from "react";
 import styled from "styled-components";
 import { Input, Slider, Space } from "antd";
 import FiltersCard from "./FiltersCard";
@@ -40,16 +40,14 @@ const InputContainer = styled(Input)`
   }
 `;
 
-const Price = () => {
-  const [price, setPrice] = useState([1, 1000]);
-
+const Price = ({ price, setPrice }) => {
   const onSetPrice = useCallback((index, value) => {
     setPrice((prevState) => {
       const newPrice = [...prevState];
       newPrice[index] = value;
       return newPrice;
     });
-  }, []);
+  }, [setPrice]);
 
   return (
     <FiltersCard title="PRICE">

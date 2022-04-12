@@ -1,5 +1,5 @@
 import { useLanguage } from "../../../utils/useLanguage";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
 import FiltersCard from "./FiltersCard";
@@ -28,9 +28,8 @@ const categories = [
   },
 ];
 
-const Categories = () => {
+const Categories = ({ categorieList, setCategorieList }) => {
   const { language } = useLanguage();
-  const [categorieList, setCategorieList] = useState([]);
 
   useEffect(() => {
     if (categories) {
@@ -41,20 +40,23 @@ const Categories = () => {
         }))
       );
     }
-  }, []);
+  }, [setCategorieList]);
 
-  const onChange = useCallback((id) => {
-    setCategorieList((prevState) => {
-      const newCategorieList = [...prevState];
-      const activeKey = newCategorieList.find(
-        (categorie) => categorie.key === id
-      );
-      if (activeKey) {
-        activeKey.checked = !activeKey.checked;
-      }
-      return newCategorieList;
-    });
-  }, []);
+  const onChange = useCallback(
+    (id) => {
+      setCategorieList((prevState) => {
+        const newCategorieList = [...prevState];
+        const activeKey = newCategorieList.find(
+          (categorie) => categorie.key === id
+        );
+        if (activeKey) {
+          activeKey.checked = !activeKey.checked;
+        }
+        return newCategorieList;
+      });
+    },
+    [setCategorieList]
+  );
 
   return (
     <FiltersCard title="CATEGORIES">

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { useLanguage } from "../../../utils/useLanguage";
 import styled from "styled-components";
 import { Space } from "antd";
@@ -36,9 +36,8 @@ const SpaceContainer = styled(Space)`
   width: 100%;
 `;
 
-const Color = () => {
+const Color = ({colorList, setColorList}) => {
   const { language } = useLanguage();
-  const [colorList, setColorList] = useState([]);
 
   useEffect(() => {
     if (colors) {
@@ -49,7 +48,7 @@ const Color = () => {
         }))
       );
     }
-  }, []);
+  }, [setColorList]);
 
   const onChange = useCallback((id) => {
     setColorList((prevState) => {
@@ -60,7 +59,7 @@ const Color = () => {
       }
       return newcolorList;
     });
-  }, []);
+  }, [setColorList]);
 
   return (
     <FiltersCard title="Color">

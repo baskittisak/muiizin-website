@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import styled from "styled-components";
 import { Space } from "antd";
 import Search from "./Search";
@@ -12,14 +12,23 @@ const SpaceContainer = styled(Space)`
 `;
 
 const AllFilters = () => {
+  const [search, setSearch] = useState("");
+  const [categorieList, setCategorieList] = useState([]);
+  const [price, setPrice] = useState([1, 1000]);
+  const [colorList, setColorList] = useState([]);
+  const [sizeList, setSizeList] = useState([]);
+
   return (
     <SpaceContainer direction="vertical" size={30}>
-      <Search />
+      <Search search={search} setSearch={setSearch} />
       <SpaceContainer direction="vertical" size={40}>
-        <Categories />
-        <Price />
-        <Color />
-        <Size />
+        <Categories
+          categorieList={categorieList}
+          setCategorieList={setCategorieList}
+        />
+        <Price price={price} setPrice={setPrice} />
+        <Color colorList={colorList} setColorList={setColorList} />
+        <Size sizeList={sizeList} setSizeList={setSizeList} />
       </SpaceContainer>
     </SpaceContainer>
   );

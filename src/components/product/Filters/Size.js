@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
@@ -31,9 +31,7 @@ const SpaceContainer = styled(Space)`
   width: 100%;
 `;
 
-const Size = () => {
-  const [sizeList, setSizeList] = useState([]);
-
+const Size = ({ sizeList, setSizeList }) => {
   useEffect(() => {
     if (allSize) {
       setSizeList(() =>
@@ -43,7 +41,7 @@ const Size = () => {
         }))
       );
     }
-  }, []);
+  }, [setSizeList]);
 
   const onChange = useCallback((id) => {
     setSizeList((prevState) => {
@@ -54,7 +52,7 @@ const Size = () => {
       }
       return newsizeList;
     });
-  }, []);
+  }, [setSizeList]);
 
   return (
     <FiltersCard title="size">

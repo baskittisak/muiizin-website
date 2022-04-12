@@ -18,8 +18,14 @@ const InputContainer = styled(Input)`
   }
 `;
 
-const Search = () => {
-  return <InputContainer prefix={<Icon component={search_icon} />} />;
+const Search = ({ search, setSearch }) => {
+  return (
+    <InputContainer
+      value={search}
+      prefix={<Icon component={search_icon} />}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+  );
 };
 
 export default memo(Search);
