@@ -1,7 +1,7 @@
-import { Space } from "antd";
-import { memo, useCallback, useEffect, useState } from "react";
-import Checkbox from "../../../center_components/Checkbox";
 import { useLanguage } from "../../../utils/useLanguage";
+import { memo, useCallback, useEffect, useState } from "react";
+import { Space } from "antd";
+import Checkbox from "../../../center_components/Checkbox";
 import FiltersCard from "./FiltersCard";
 
 const categories = [

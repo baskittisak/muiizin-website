@@ -1,11 +1,11 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import styled from "styled-components";
 import { Box } from "../styles/common";
 import Icon from "@ant-design/icons";
 import { ReactComponent as correct_icon } from "../assets/icons/correct.svg";
 import Typography from "./Typography";
 
-const Container = styled(Box)`
+const CheckboxWrapper = styled(Box)`
   cursor: pointer;
 `;
 
@@ -21,21 +21,32 @@ const IconCorrect = styled(Icon)`
   font-size: 12px;
 `;
 
-const Checkbox = ({ id, value, checked, onChange }) => {
+const Checkbox = ({ id, value, checked, total, onChange }) => {
+  const isTotal = useMemo(() => {
+    return total !== undefined;
+  }, [total]);
+
   return (
-    <Container align="center" onClick={() => onChange(id)}>
-      <CheckboxContainer justify="center" align="center">
-        {checked && <IconCorrect component={correct_icon} />}
-      </CheckboxContainer>
-      <Typography
-        fontSize={20}
-        lineHeight={22}
-        fontWeight={checked ? 700 : 400}
-        color={checked ? "#4F4F4F" : "#828282"}
-      >
-        {value}
-      </Typography>
-    </Container>
+    <Box justify={isTotal && "space-between"} align="center">
+      <CheckboxWrapper align="center" onClick={() => onChange(id)}>
+        <CheckboxContainer justify="center" align="center">
+          {checked && <IconCorrect component={correct_icon} />}
+        </CheckboxContainer>
+        <Typography
+          fontSize={20}
+          lineHeight={22}
+          fontWeight={checked ? 700 : 400}
+          color={checked ? "#4F4F4F" : "#828282"}
+        >
+          {value}
+        </Typography>
+      </CheckboxWrapper>
+      {isTotal && (
+        <Typography fontSize={20} lineHeight={22} color="#828282">
+          ({total})
+        </Typography>
+      )}
+    </Box>
   );
 };
 
