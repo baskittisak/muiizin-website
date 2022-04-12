@@ -29,6 +29,12 @@ const Container = styled.div`
 
 const ColFilters = styled(Col)`
   padding-right: 60px;
+
+  ${({ is_md }) =>
+    is_md &&
+    css`
+      padding-right: 20px;
+    `};
 `;
 
 const ColProduct = styled(Col)`
@@ -93,11 +99,9 @@ const ProductList = () => {
   );
 
   const spanProduct = useMemo(() => {
-    return md && width >= 800
+    return md && width >= 860
       ? 8
-      : (md && (width < 600 || width >= 800)) || (!md && width < 1024)
-      ? 12
-      : (md && (width < 800 || width >= 600)) || (!md && width < 1320)
+      : (md && (width < 860 || width >= 600)) || (!md && width < 1320)
       ? 12
       : 8;
   }, [width, md]);
@@ -108,10 +112,10 @@ const ProductList = () => {
         <Row>
           <Col span={20} offset={2}>
             <Row>
-              <ColFilters span={6}>
+              <ColFilters span={md ? 8 : 6} is_md={md || width < 1320 ? 1 : 0}>
                 <AllFilters />
               </ColFilters>
-              <Col span={18}>
+              <Col span={md ? 16 : 18}>
                 <HeaderList justify="space-between" align="center">
                   <OrderBy orderBy={orderBy} setOrderBy={setOrderBy} />
                   {resultText}
