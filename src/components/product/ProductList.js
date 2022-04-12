@@ -2,21 +2,27 @@ import { memo } from "react";
 import { useResponsive } from "../../utils/useResponsive";
 import styled, { css } from "styled-components";
 import Layout from "../../center_components/layout/Layout";
+import { Col, Row } from "antd";
+import AllFilters from "./Filters/AllFilters";
 
 const Container = styled.div`
-  margin-top: 168px;
+  margin: 216px 0 125px;
 
   ${({ md }) =>
     md &&
     css`
-      margin-top: 100px;
+      margin: 140px 0 90px;
     `};
 
   ${({ xs }) =>
     xs &&
     css`
-      margin-top: 60px;
+      margin: 90px 0 40px;
     `};
+`;
+
+const ColFilters = styled(Col)`
+  padding-right: 60px;
 `;
 
 const ProductList = () => {
@@ -24,7 +30,19 @@ const ProductList = () => {
 
   return (
     <Layout>
-      <Container md={md} xs={xs}>Product List</Container>
+      <Container md={md} xs={xs}>
+        <Row>
+          <Col span={20} offset={2}>
+            <Row>
+              <ColFilters span={6}>
+                <AllFilters />
+              </ColFilters>
+              <Col span={18}>ProductList</Col>
+            </Row>
+          </Col>
+          <Col span={2} />
+        </Row>
+      </Container>
     </Layout>
   );
 };
