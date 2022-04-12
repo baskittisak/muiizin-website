@@ -4,6 +4,10 @@ import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
 import FiltersCard from "./FiltersCard";
 
+const SpaceContainer = styled(Space)`
+  width: 100%;
+`;
+
 const allSize = [
   {
     key: "s",
@@ -27,10 +31,6 @@ const allSize = [
   },
 ];
 
-const SpaceContainer = styled(Space)`
-  width: 100%;
-`;
-
 const Size = ({ sizeList, setSizeList }) => {
   useEffect(() => {
     if (allSize) {
@@ -43,16 +43,19 @@ const Size = ({ sizeList, setSizeList }) => {
     }
   }, [setSizeList]);
 
-  const onChange = useCallback((id) => {
-    setSizeList((prevState) => {
-      const newsizeList = [...prevState];
-      const activeKey = newsizeList.find((size) => size.key === id);
-      if (activeKey) {
-        activeKey.checked = !activeKey.checked;
-      }
-      return newsizeList;
-    });
-  }, [setSizeList]);
+  const onChange = useCallback(
+    (id) => {
+      setSizeList((prevState) => {
+        const newsizeList = [...prevState];
+        const activeKey = newsizeList.find((size) => size.key === id);
+        if (activeKey) {
+          activeKey.checked = !activeKey.checked;
+        }
+        return newsizeList;
+      });
+    },
+    [setSizeList]
+  );
 
   return (
     <FiltersCard title="size">

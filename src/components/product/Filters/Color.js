@@ -5,6 +5,10 @@ import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
 import FiltersCard from "./FiltersCard";
 
+const SpaceContainer = styled(Space)`
+  width: 100%;
+`;
+
 const colors = [
   {
     key: "black",
@@ -32,11 +36,7 @@ const colors = [
   },
 ];
 
-const SpaceContainer = styled(Space)`
-  width: 100%;
-`;
-
-const Color = ({colorList, setColorList}) => {
+const Color = ({ colorList, setColorList }) => {
   const { language } = useLanguage();
 
   useEffect(() => {
@@ -50,16 +50,19 @@ const Color = ({colorList, setColorList}) => {
     }
   }, [setColorList]);
 
-  const onChange = useCallback((id) => {
-    setColorList((prevState) => {
-      const newcolorList = [...prevState];
-      const activeKey = newcolorList.find((color) => color.key === id);
-      if (activeKey) {
-        activeKey.checked = !activeKey.checked;
-      }
-      return newcolorList;
-    });
-  }, [setColorList]);
+  const onChange = useCallback(
+    (id) => {
+      setColorList((prevState) => {
+        const newcolorList = [...prevState];
+        const activeKey = newcolorList.find((color) => color.key === id);
+        if (activeKey) {
+          activeKey.checked = !activeKey.checked;
+        }
+        return newcolorList;
+      });
+    },
+    [setColorList]
+  );
 
   return (
     <FiltersCard title="Color">
