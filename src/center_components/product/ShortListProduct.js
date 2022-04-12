@@ -1,6 +1,7 @@
 import { memo, useMemo, useRef } from "react";
 import { useLanguage } from "../../utils/useLanguage";
 import { useResponsive } from "../../utils/useResponsive";
+import { useNavigate } from "react-router-dom";
 import { productList } from "../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
@@ -99,6 +100,7 @@ const SliderScroll = styled(Space)`
 const ShortListProduct = ({ title, hiddenViewMore }) => {
   const { language } = useLanguage();
   const { width, md, xs } = useResponsive();
+  const navigate = useNavigate();
   const slider = useRef();
 
   const sliderNumber = useMemo(() => {
@@ -177,7 +179,7 @@ const ShortListProduct = ({ title, hiddenViewMore }) => {
         )}
         {xs === 1 && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
         {!hiddenViewMore && (
-          <ViewMore md={md}>
+          <ViewMore md={md} onClick={() => navigate("/product")}>
             <Typography
               fontSize={md ? 12 : 18}
               lineHeight={md ? 13 : 13}
