@@ -1,5 +1,6 @@
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { useResponsive } from "../../utils/useResponsive";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Box, TextOverFlow } from "../../styles/common";
 import { Image, Space } from "antd";
@@ -31,6 +32,7 @@ const Container = styled.div`
 `;
 
 const ImageContainer = styled(Box)`
+  cursor: pointer;
   width: 280px;
   height: 290px;
   background-color: #f7f7f7;
@@ -58,8 +60,21 @@ const SpaceNewPrice = styled(Space)`
   }
 `;
 
-const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
+const ProductCard = ({
+  productId,
+  image,
+  name,
+  category,
+  owner,
+  price,
+  newPrice,
+}) => {
   const { md, xs } = useResponsive();
+  const navigate = useNavigate();
+
+  const onViewDetail = useCallback(() => {
+    navigate(`/product-detail?productId=${productId}`);
+  }, [productId, navigate]);
 
   const propsDescription = useMemo(
     () => ({
@@ -103,7 +118,13 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
       <Space direction="vertical" size={xs ? 0 : 10}>
         <Space direction="vertical" size={xs ? 0 : md ? 3 : 5}>
           <Space direction="vertical" size={xs ? 9 : 14}>
-            <ImageContainer justify="center" align="center" md={md} xs={xs}>
+            <ImageContainer
+              justify="center"
+              align="center"
+              md={md}
+              xs={xs}
+              onClick={onViewDetail}
+            >
               <Image
                 src={image}
                 preview={false}
@@ -117,6 +138,7 @@ const ProductCard = ({ image, name, category, owner, price, newPrice }) => {
                 lineHeight={xs ? 15 : md ? 13 : 20}
                 fontWeight={700}
                 whiteSpace="initial"
+                onClick={onViewDetail}
               >
                 {name}
               </Typography>

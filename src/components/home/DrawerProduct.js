@@ -140,6 +140,7 @@ const DrawerProduct = ({ visible, onClose }) => {
         {productList.map((product) => (
           <RelatedProductCard
             key={product.id}
+            productId={product.id}
             image={product.image}
             name={product.name[language]}
             category={product.category[language]}

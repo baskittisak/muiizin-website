@@ -1,8 +1,9 @@
-import { Image, Space } from "antd";
 import { memo, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useResponsive } from "../../utils/useResponsive";
 import styled, { css } from "styled-components";
 import { Box, TextOverFlow } from "../../styles/common";
-import { useResponsive } from "../../utils/useResponsive";
+import { Image, Space } from "antd";
 import Typography from "../Typography";
 
 const Container = styled(Box)`
@@ -63,6 +64,7 @@ const SeeMore = styled(Box)`
 `;
 
 const RelatedProductCard = ({
+  productId,
   image,
   name,
   category,
@@ -71,6 +73,7 @@ const RelatedProductCard = ({
   newPrice,
 }) => {
   const { xs } = useResponsive();
+  const navigate = useNavigate();
 
   const propsDescription = useMemo(
     () => ({
@@ -138,7 +141,12 @@ const RelatedProductCard = ({
           </Space>
         </Space>
         {displayPrice}
-        <SeeMore justify="center" align="center" xs={xs}>
+        <SeeMore
+          justify="center"
+          align="center"
+          xs={xs}
+          onClick={() => navigate(`/product-detail?productId=${productId}`)}
+        >
           <Typography
             fontSize={xs ? 14 : 18}
             lineHeight={xs ? 15 : 20}

@@ -71,7 +71,8 @@ const Navbar = () => {
             <Space size={md ? 40 : 50}>
               {MENU_NAVBAR.map((menu) => {
                 const { path, title } = menu;
-                const isActive = path === pathname;
+                const isProduct = path === "/product" && pathname === "/product-detail";
+                const isActive = path === pathname || isProduct;
                 return (
                   <Typography
                     key={path}

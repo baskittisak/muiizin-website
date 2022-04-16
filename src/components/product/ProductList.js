@@ -4,8 +4,8 @@ import { useLanguage } from "../../utils/useLanguage";
 import { productList } from "../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
-import Layout from "../../center_components/layout/Layout";
 import { Col, Row, Pagination } from "antd";
+import Layout from "../../center_components/layout/Layout";
 import AllFilters from "./Filters/AllFilters";
 import ProductCard from "../../center_components/product/ProductCard";
 import OrderBy from "./OrderBy";
@@ -156,6 +156,7 @@ const ProductList = () => {
                   {productList.map((product) => (
                     <ColProduct span={spanProduct} key={product.id}>
                       <ProductCard
+                        productId={product.id}
                         image={product.image}
                         name={product.name[language]}
                         category={product.category[language]}

@@ -118,6 +118,7 @@ const ShortListProduct = ({ title, hiddenViewMore }) => {
       productList.map((product) => (
         <ProductCard
           key={product.id}
+          productId={product.id}
           image={product.image}
           name={product.name[language]}
           category={product.category[language]}
