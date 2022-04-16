@@ -119,7 +119,7 @@ const ShortListProduct = ({ title, hiddenViewMore }) => {
         <ProductCard
           key={product.id}
           productId={product.id}
-          image={product.image}
+          image={product.images[0]}
           name={product.name[language]}
           category={product.category[language]}
           owner={product.owner[language]}
@@ -174,6 +174,7 @@ const ShortListProduct = ({ title, hiddenViewMore }) => {
             ref={slider}
             slidesToShow={sliderNumber}
             slidesToScroll={sliderNumber}
+            arrows={false}
           >
             {displaProductList}
           </Slider>

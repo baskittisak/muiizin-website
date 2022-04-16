@@ -157,7 +157,7 @@ const ProductList = () => {
                     <ColProduct span={spanProduct} key={product.id}>
                       <ProductCard
                         productId={product.id}
-                        image={product.image}
+                        image={product.images[0]}
                         name={product.name[language]}
                         category={product.category[language]}
                         owner={product.owner[language]}
