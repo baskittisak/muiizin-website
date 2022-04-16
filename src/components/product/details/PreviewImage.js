@@ -9,10 +9,9 @@ import Slider from "react-slick";
 
 const PreviewContainer = styled(Box)`
   position: relative;
-  width: 580px;
+  width: 100%;
   height: 580px;
   background-color: #f7f7f7;
-  margin: auto;
 `;
 
 const ImageContainer = styled(Image)`
