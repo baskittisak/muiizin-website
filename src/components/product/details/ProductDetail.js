@@ -10,7 +10,7 @@ import PreviewImage from "./PreviewImage";
 import Details from "./Details";
 
 const Container = styled.div`
-  margin: 165px 0 150px;
+  margin: 145px 0 150px;
 
   .ant-breadcrumb {
     margin-bottom: 25px;
