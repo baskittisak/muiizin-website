@@ -89,7 +89,13 @@ const ProductDetail = () => {
                 <PreviewImage images={productDetail?.images} />
               </Col>
               <Col span={12}>
-                <Details />
+                <Details
+                  productName={productDetail?.name?.[language]}
+                  productOwner={productDetail?.owner?.[language]}
+                  size={productDetail?.size || false}
+                  color={productDetail?.color || false}
+                  price={productDetail?.price}
+                />
               </Col>
             </Row>
           </Col>
