@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useResponsive } from "../../../utils/useResponsive";
 import { useQuery } from "../../../utils/useQuery";
 import { useLanguage } from "../../../utils/useLanguage";
@@ -62,10 +62,20 @@ const ProductDetail = () => {
   const { md, xs } = useResponsive();
   const { language } = useLanguage();
   const productId = useQuery("productId");
+  const [activeSize, setActiveSize] = useState("");
+  const [activeColor, setActiveColor] = useState("");
 
   const productDetail = useMemo(() => {
     return productList?.find((product) => "" + product?.id === productId);
   }, [productId]);
+
+  useEffect(() => {
+    productDetail?.size && setActiveSize(productDetail?.size[0]);
+  }, [productDetail?.size]);
+
+  useEffect(() => {
+    productDetail?.color && setActiveColor(productDetail?.color[0]);
+  }, [productDetail?.color]);
 
   const breadcrumbList = useMemo(
     () => (
@@ -86,7 +96,10 @@ const ProductDetail = () => {
             {breadcrumbList}
             <Row>
               <Col span={12}>
-                <PreviewImage images={productDetail?.images} />
+                <PreviewImage
+                  images={productDetail?.images}
+                  activeColor={activeColor}
+                />
               </Col>
               <Col span={12}>
                 <Details
@@ -95,6 +108,10 @@ const ProductDetail = () => {
                   size={productDetail?.size || false}
                   color={productDetail?.color || false}
                   price={productDetail?.price}
+                  activeSize={activeSize}
+                  setActiveSize={setActiveSize}
+                  activeColor={activeColor}
+                  setActiveColor={setActiveColor}
                 />
               </Col>
             </Row>

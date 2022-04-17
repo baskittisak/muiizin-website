@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import styled from "styled-components";
 import { Box } from "../../../styles/common";
 import { Space } from "antd";
@@ -49,10 +49,17 @@ const IconLine = styled(Icon)`
   margin-left: 10px;
 `;
 
-const Details = ({ productName, productOwner, size, color, price }) => {
-  const [activeSize, setActiveSize] = useState(size[0]);
-  const [activeColor, setActiveColor] = useState(color[0]);
-
+const Details = ({
+  productName,
+  productOwner,
+  size,
+  color,
+  price,
+  activeSize,
+  setActiveSize,
+  activeColor,
+  setActiveColor,
+}) => {
   return (
     <Container>
       <Title direction="vertical" size={12}>

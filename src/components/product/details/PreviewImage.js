@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { Box } from "../../../styles/common";
 import { Image } from "antd";
@@ -54,32 +54,48 @@ const IconControl = styled(Icon)`
   z-index: 1;
 `;
 
-const PreviewImage = ({ images }) => {
-  const [activeImage, setActiveImage] = useState(images[0]);
+const PreviewImage = ({ images, activeColor }) => {
+  const [imageList, setImageList] = useState([]);
+  const [activeImage, setActiveImage] = useState("");
   const [visible, setVisible] = useState(false);
   const slider = useRef();
 
+  useEffect(() => {
+    if (images[0]?.color !== undefined && activeColor) {
+      const imagesActiveColor = images?.find(
+        (image) => image?.color === activeColor
+      )?.list;
+      setImageList(imagesActiveColor);
+      setActiveImage(imagesActiveColor[0]);
+    } else {
+      setImageList(images);
+      setActiveImage(images[0]);
+    }
+  }, [activeColor, images]);
+
   const displaImageList = useMemo(
     () =>
-      images.map((image, index) => (
+      imageList?.map((image, index) => (
         <ImageSildeContainer key={index} justify="center" align="center">
           <ImageSilde src={image} preview={false} />
         </ImageSildeContainer>
       )),
-    [images]
+    [imageList]
   );
 
   return (
     <>
       <PreviewContainer justify="center" align="center">
-        <ImageContainer
-          src={activeImage}
-          preview={{
-            visible,
-            mask: null,
-            onVisibleChange: () => setVisible(false),
-          }}
-        />
+        {activeImage && (
+          <ImageContainer
+            src={activeImage}
+            preview={{
+              visible,
+              mask: null,
+              onVisibleChange: () => setVisible(false),
+            }}
+          />
+        )}
         <IconExpend component={expand_icon} onClick={() => setVisible(true)} />
       </PreviewContainer>
       <SliderContainer>
@@ -101,7 +117,9 @@ const PreviewImage = ({ images }) => {
               onClick={() => slider?.current?.slickPrev()}
             />
           }
-          afterChange={(currentSlide) => setActiveImage(images[currentSlide])}
+          afterChange={(currentSlide) =>
+            setActiveImage(imageList[currentSlide])
+          }
         >
           {displaImageList}
         </Slider>
