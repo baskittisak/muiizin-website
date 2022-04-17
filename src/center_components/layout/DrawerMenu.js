@@ -41,10 +41,13 @@ const DrawerMenu = ({ visible, menuList, onClose }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
 
-  const onNavigate = useCallback((path) => {
-    navigate(path);
-    onClose();
-  }, [navigate, onClose]);
+  const onNavigate = useCallback(
+    (path) => {
+      navigate(path);
+      onClose();
+    },
+    [navigate, onClose]
+  );
 
   return (
     <DrawerContainer
@@ -57,7 +60,9 @@ const DrawerMenu = ({ visible, menuList, onClose }) => {
         <Space direction="vertical" size={40}>
           {menuList.map((menu) => {
             const { path, title } = menu;
-            const isActive = path === pathname;
+            const isProduct =
+              path === "/product" && pathname === "/product-detail";
+            const isActive = path === pathname || isProduct;
             return (
               <Typography
                 key={path}
