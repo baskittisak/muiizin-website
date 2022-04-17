@@ -8,6 +8,7 @@ import Layout from "../../../center_components/layout/Layout";
 import { Breadcrumb, Col, Row } from "antd";
 import PreviewImage from "./PreviewImage";
 import Details from "./Details";
+import Description from "./Description";
 
 const Container = styled.div`
   margin: 145px 0 150px;
@@ -63,6 +64,22 @@ const Container = styled.div`
     `};
 `;
 
+const RowContainer = styled(Row)`
+  margin-bottom: 100px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      margin-bottom: 78px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      margin-bottom: 64px;
+    `};
+`;
+
 const ProductDetail = () => {
   const { md, xs } = useResponsive();
   const { language } = useLanguage();
@@ -73,6 +90,26 @@ const ProductDetail = () => {
   const productDetail = useMemo(() => {
     return productList?.find((product) => "" + product?.id === productId);
   }, [productId]);
+
+  const productDescription = useMemo(() => {
+    return `<strong>Lorem ipsum dolor sit amet</strong>\n
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>\n\n
+    <strong>Lorem ipsum dolor sit amet</strong>\n
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>\n\n
+    <strong>Lorem ipsum dolor sit amet</strong>\n
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>\n\n
+    <strong>Lorem ipsum dolor sit amet</strong>\n
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>
+    `;
+  }, []);
 
   useEffect(() => {
     productDetail?.size && setActiveSize(productDetail?.size[0]);
@@ -99,7 +136,7 @@ const ProductDetail = () => {
         <Row>
           <Col span={xs ? 24 : 20} offset={xs ? 0 : 2}>
             {breadcrumbList}
-            <Row>
+            <RowContainer md={md} xs={xs}>
               <Col span={xs ? 24 : 12}>
                 <PreviewImage
                   images={productDetail?.images}
@@ -119,7 +156,8 @@ const ProductDetail = () => {
                   setActiveColor={setActiveColor}
                 />
               </Col>
-            </Row>
+            </RowContainer>
+            <Description description={productDescription} />
           </Col>
           <Col offset={xs ? 0 : 2} />
         </Row>
