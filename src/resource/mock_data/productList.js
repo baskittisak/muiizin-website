@@ -6,6 +6,7 @@ import mock_cloth_bag_image from "../../assets/image/mock_cloth_bag.png";
 export const productList = [
   {
     id: 1,
+    coverImage: mock_bag_image,
     images: [
       mock_bag_image,
       mock_cushions_image,
@@ -31,6 +32,7 @@ export const productList = [
   },
   {
     id: 2,
+    coverImage: mock_cushions_image,
     images: [
       mock_cushions_image,
       mock_cushions_image,
@@ -54,6 +56,7 @@ export const productList = [
   },
   {
     id: 3,
+    coverImage: mock_hat_image,
     images: [mock_hat_image, mock_hat_image, mock_hat_image, mock_hat_image],
     name: {
       en: "OTOP SELECT หมวกแก๊ปผ้าไหมแท้​ ทอมือ",
@@ -72,6 +75,7 @@ export const productList = [
   },
   {
     id: 4,
+    coverImage: mock_cloth_bag_image,
     images: [
       mock_cloth_bag_image,
       mock_cloth_bag_image,
@@ -94,6 +98,7 @@ export const productList = [
   },
   {
     id: 5,
+    coverImage: mock_bag_image,
     images: [mock_bag_image, mock_bag_image, mock_bag_image, mock_bag_image],
     name: {
       en: "กระเป๋ากระจูด จ.ระยอง คนพื้นเมืองทำเพื่อ คนเมือง",
@@ -112,6 +117,7 @@ export const productList = [
   },
   {
     id: 6,
+    coverImage: mock_cushions_image,
     images: [
       mock_cushions_image,
       mock_cushions_image,
@@ -134,6 +140,7 @@ export const productList = [
   },
   {
     id: 7,
+    coverImage: mock_hat_image,
     images: [mock_hat_image, mock_hat_image, mock_hat_image, mock_hat_image],
     name: {
       en: "OTOP SELECT หมวกแก๊ปผ้าไหมแท้​ ทอมือ",
@@ -151,6 +158,7 @@ export const productList = [
   },
   {
     id: 8,
+    coverImage: mock_cloth_bag_image,
     images: [
       mock_cloth_bag_image,
       mock_cloth_bag_image,
@@ -173,6 +181,7 @@ export const productList = [
   },
   {
     id: 9,
+    coverImage: mock_bag_image,
     images: [mock_bag_image, mock_bag_image, mock_bag_image, mock_bag_image],
     name: {
       en: "กระเป๋ากระจูด จ.ระยอง คนพื้นเมืองทำเพื่อ คนเมือง",
@@ -191,6 +200,7 @@ export const productList = [
   },
   {
     id: 10,
+    coverImage: mock_cushions_image,
     images: [
       mock_cushions_image,
       mock_cushions_image,
@@ -213,6 +223,7 @@ export const productList = [
   },
   {
     id: 11,
+    coverImage: mock_hat_image,
     images: [mock_hat_image, mock_hat_image, mock_hat_image, mock_hat_image],
     name: {
       en: "OTOP SELECT หมวกแก๊ปผ้าไหมแท้​ ทอมือ",
@@ -230,6 +241,7 @@ export const productList = [
   },
   {
     id: 12,
+    coverImage: mock_cloth_bag_image,
     images: [
       mock_cloth_bag_image,
       mock_cloth_bag_image,

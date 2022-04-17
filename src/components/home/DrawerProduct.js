@@ -141,7 +141,7 @@ const DrawerProduct = ({ visible, onClose }) => {
           <RelatedProductCard
             key={product.id}
             productId={product.id}
-            image={product.images[0]}
+            image={product.coverImage}
             name={product.name[language]}
             category={product.category[language]}
             owner={product.owner[language]}
