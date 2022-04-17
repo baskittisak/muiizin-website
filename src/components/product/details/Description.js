@@ -5,19 +5,10 @@ import Typography from "../../../center_components/Typography";
 import { Space } from "antd";
 
 const Container = styled.div`
-  margin-bottom: 100px;
-
-  ${({ md }) =>
-    md &&
-    css`
-      margin-bottom: 78px;
-    `};
-
   ${({ xs }) =>
     xs &&
     css`
       padding: 0 17px;
-      margin-bottom: 64px;
     `};
 `;
 
@@ -114,7 +105,7 @@ const Description = ({ description }) => {
   const [more, setMore] = useState(false);
 
   return (
-    <Container md={md} xs={xs}>
+    <Container xs={xs}>
       <Title>
         <Space direction="vertical" size={5}>
           <Typography

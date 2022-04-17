@@ -34,6 +34,12 @@ const RowContainer = styled(Row)`
     css`
       padding: 52px 0 44px;
     `};
+
+  ${({ bottom }) =>
+    bottom &&
+    css`
+      padding-bottom: ${bottom} !important;
+    `};
 `;
 
 const Line = styled.div`
@@ -97,7 +103,7 @@ const SliderScroll = styled(Space)`
   align-items: flex-start;
 `;
 
-const ShortListProduct = ({ title, hiddenViewMore }) => {
+const ShortListProduct = ({ title, hiddenViewMore, paddingBottom }) => {
   const { language } = useLanguage();
   const { width, md, xs } = useResponsive();
   const navigate = useNavigate();
@@ -131,7 +137,7 @@ const ShortListProduct = ({ title, hiddenViewMore }) => {
   );
 
   return (
-    <RowContainer md={md} xs={xs}>
+    <RowContainer md={md} xs={xs} bottom={paddingBottom}>
       <Col span={20} offset={2}>
         <Title justify={xs ? "center" : "space-between"} align="center">
           <Space direction="vertical" size={xs ? 3 : 0}>

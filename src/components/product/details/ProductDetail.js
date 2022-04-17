@@ -9,6 +9,7 @@ import { Breadcrumb, Col, Row } from "antd";
 import PreviewImage from "./PreviewImage";
 import Details from "./Details";
 import Description from "./Description";
+import ShortListProduct from "../../../center_components/product/ShortListProduct";
 
 const Container = styled.div`
   margin: 145px 0 150px;
@@ -161,6 +162,11 @@ const ProductDetail = () => {
           </Col>
           <Col offset={xs ? 0 : 2} />
         </Row>
+        <ShortListProduct
+          title="Related Products"
+          hiddenViewMore={true}
+          paddingBottom="0px"
+        />
       </Container>
     </Layout>
   );
