@@ -1,4 +1,5 @@
 import { memo, useMemo } from "react";
+import { useResponsive } from "../../../../utils/useResponsive";
 import styled, { css } from "styled-components";
 import { Box } from "../../../../styles/common";
 import { Space } from "antd";
@@ -8,6 +9,13 @@ const LineOption = styled.div`
   width: 20px;
   height: 3px;
   background-color: #4f4f4f;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 10px;
+      height: 1.5px;
+    `};
 `;
 
 const ColorBox = styled(Box)`
@@ -22,6 +30,13 @@ const ColorBox = styled(Box)`
     css`
       border: 1.5px solid #4f4f4f;
     `};
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 22px;
+      height: 22px;
+    `};
 `;
 
 const DisplayColor = styled.div`
@@ -29,9 +44,22 @@ const DisplayColor = styled.div`
   height: 26px;
   border-radius: 100%;
   background-color: ${({ color }) => color};
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 16px;
+      height: 16px;
+    `};
 `;
 
 const Color = ({ colorList, activeColor, setActiveColor }) => {
+  const { width } = useResponsive();
+
+  const isMd = useMemo(() => {
+    return width < 1150 ? 1 : 0;
+  }, [width]);
+
   const displaySizeList = useMemo(() => {
     return colorList.map((color, index) => {
       const isActive = color === activeColor;
@@ -41,29 +69,30 @@ const Color = ({ colorList, activeColor, setActiveColor }) => {
           justify="center"
           align="center"
           active={isActive}
+          md={isMd}
           onClick={() => setActiveColor(color)}
         >
-          <DisplayColor color={color} />
+          <DisplayColor color={color} md={isMd} />
         </ColorBox>
       );
     });
-  }, [colorList, activeColor, setActiveColor]);
+  }, [isMd, colorList, activeColor, setActiveColor]);
 
   return (
-    <Space direction="vertical" size={15}>
-      <Space direction="vertical" size={5}>
+    <Space direction="vertical" size={isMd ? 10 : 15}>
+      <Space direction="vertical" size={isMd ? 0 : 5}>
         <Typography
-          fontSize={20}
-          lineHeight={22}
+          fontSize={isMd ? 13 : 20}
+          lineHeight={isMd ? 14 : 22}
           fontWeight={700}
           color="#4F4F4F"
           uppercase
         >
           Color
         </Typography>
-        <LineOption />
+        <LineOption md={isMd} />
       </Space>
-      <Space size={20}>{displaySizeList}</Space>
+      <Space size={isMd ? 10 : 20}>{displaySizeList}</Space>
     </Space>
   );
 };

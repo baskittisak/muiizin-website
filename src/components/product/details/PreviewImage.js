@@ -1,5 +1,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import styled from "styled-components";
+import { useResponsive } from "../../../utils/useResponsive";
+import styled, { css } from "styled-components";
 import { Box } from "../../../styles/common";
 import { Image } from "antd";
 import Icon from "@ant-design/icons";
@@ -12,11 +13,24 @@ const PreviewContainer = styled(Box)`
   width: 100%;
   height: 580px;
   background-color: #f7f7f7;
+
+  ${({ md }) =>
+    md &&
+    css`
+      height: 356px;
+    `};
 `;
 
 const ImageContainer = styled(Image)`
   width: 450px;
   height: 450px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 250px;
+      height: 250px;
+    `};
 `;
 
 const IconExpend = styled(Icon)`
@@ -25,6 +39,14 @@ const IconExpend = styled(Icon)`
   position: absolute;
   top: 15px;
   right: 15px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      font-size: 15px;
+      top: 9px;
+      right: 9px;
+    `};
 `;
 
 const SliderContainer = styled.div`
@@ -34,17 +56,37 @@ const SliderContainer = styled.div`
     display: flex;
     justify-content: center;
   }
+
+  ${({ md }) =>
+    md &&
+    css`
+      margin-top: 12px;
+    `};
 `;
 
 const ImageSildeContainer = styled(Box)`
   width: 150px !important;
   height: 150px;
   background-color: #f7f7f7;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 92px !important;
+      height: 92px;
+    `};
 `;
 
 const ImageSilde = styled(Image)`
   width: 100px;
   height: 100px;
+
+  ${({ md }) =>
+    md &&
+    css`
+      width: 60px;
+      height: 60px;
+    `};
 `;
 
 const IconControl = styled(Icon)`
@@ -52,13 +94,24 @@ const IconControl = styled(Icon)`
   cursor: pointer;
   transform: ${({ deg }) => deg && `rotate(${deg})`};
   z-index: 1;
+
+  ${({ md }) =>
+    md &&
+    css`
+      font-size: 15px;
+    `};
 `;
 
 const PreviewImage = ({ images, activeColor }) => {
+  const { width } = useResponsive();
   const [imageList, setImageList] = useState([]);
   const [activeImage, setActiveImage] = useState("");
   const [visible, setVisible] = useState(false);
   const slider = useRef();
+
+  const isMd = useMemo(() => {
+    return width < 1150 ? 1 : 0;
+  }, [width]);
 
   useEffect(() => {
     if (images[0]?.color !== undefined && activeColor) {
@@ -76,19 +129,25 @@ const PreviewImage = ({ images, activeColor }) => {
   const displaImageList = useMemo(
     () =>
       imageList?.map((image, index) => (
-        <ImageSildeContainer key={index} justify="center" align="center">
-          <ImageSilde src={image} preview={false} />
+        <ImageSildeContainer
+          key={index}
+          justify="center"
+          align="center"
+          md={isMd}
+        >
+          <ImageSilde src={image} preview={false} md={isMd} />
         </ImageSildeContainer>
       )),
-    [imageList]
+    [imageList, isMd]
   );
 
   return (
     <>
-      <PreviewContainer justify="center" align="center">
+      <PreviewContainer justify="center" align="center" md={isMd}>
         {activeImage && (
           <ImageContainer
             src={activeImage}
+            md={isMd}
             preview={{
               visible,
               mask: null,
@@ -96,17 +155,22 @@ const PreviewImage = ({ images, activeColor }) => {
             }}
           />
         )}
-        <IconExpend component={expand_icon} onClick={() => setVisible(true)} />
+        <IconExpend
+          component={expand_icon}
+          onClick={() => setVisible(true)}
+          md={isMd}
+        />
       </PreviewContainer>
-      <SliderContainer>
+      <SliderContainer md={isMd}>
         <Slider
           ref={slider}
-          slidesToShow={3}
+          slidesToShow={width < 680 ? 2 : 3}
           slidesToScroll={1}
           arrows={true}
           nextArrow={
             <IconControl
               component={arrow_active_icon}
+              md={isMd}
               onClick={() => slider?.current?.slickNext()}
             />
           }
@@ -114,6 +178,7 @@ const PreviewImage = ({ images, activeColor }) => {
             <IconControl
               component={arrow_active_icon}
               deg="180deg"
+              md={isMd}
               onClick={() => slider?.current?.slickPrev()}
             />
           }
