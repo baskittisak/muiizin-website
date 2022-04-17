@@ -17,8 +17,16 @@ const Container = styled.div`
   ${({ md }) =>
     md &&
     css`
-      height: 356;
+      height: 356px;
       margin-left: 20px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      height: 100%;
+      margin-left: 0;
+      padding: 0 17px;
     `};
 `;
 
@@ -29,6 +37,12 @@ const Title = styled(Space)`
     md &&
     css`
       margin-bottom: 16px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      margin-bottom: 0;
     `};
 `;
 
@@ -48,6 +62,14 @@ const Options = styled(Space)`
       padding: 12px 0;
       margin-bottom: 12px;
     `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      height: auto;
+      padding: 20px 0;
+      margin-bottom: 20px;
+    `};
 `;
 
 const ReadyToShip = styled.div`
@@ -60,6 +82,12 @@ const ReadyToShip = styled.div`
     md &&
     css`
       padding: 5px 7px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      padding: 7px;
     `};
 `;
 
@@ -77,6 +105,13 @@ const OrderButton = styled(Box)`
       padding: 14px 0;
       margin-top: 10px;
     `};
+
+  ${({ md }) =>
+    md &&
+    css`
+      padding: 12px 0;
+      margin-top: 0;
+    `};
 `;
 
 const IconLine = styled(Icon)`
@@ -89,6 +124,16 @@ const IconLine = styled(Icon)`
       font-size: 16px;
       margin-left: 5px;
     `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      font-size: 12px;
+    `};
+`;
+
+const BoxPrice = styled(Box)`
+  margin: 11px 0 20px;
 `;
 
 const Details = ({
@@ -102,18 +147,23 @@ const Details = ({
   activeColor,
   setActiveColor,
 }) => {
-  const { width } = useResponsive();
+  const { width, xs } = useResponsive();
 
   const isMd = useMemo(() => {
     return width < 1150 ? 1 : 0;
   }, [width]);
 
   return (
-    <Container md={isMd}>
-      <Title direction="vertical" size={isMd ? 9 : 12} md={isMd}>
+    <Container md={isMd} xs={xs}>
+      <Title
+        direction="vertical"
+        size={xs ? 5 : isMd ? 9 : 12}
+        md={isMd}
+        xs={xs}
+      >
         <Typography
-          fontSize={isMd ? 20 : 36}
-          lineHeight={isMd ? 22 : 39}
+          fontSize={xs ? 18 : isMd ? 20 : 36}
+          lineHeight={xs ? 20 : isMd ? 22 : 39}
           fontWeight={700}
           color="#044700"
           whiteSpace="initial"
@@ -128,7 +178,35 @@ const Details = ({
           {productOwner}
         </Typography>
       </Title>
-      <Options direction="vertical" size={isMd ? 12 : 30} md={isMd}>
+      {xs === 1 && (
+        <BoxPrice justify="space-between" align="center">
+          <Typography
+            fontSize={24}
+            lineHeight={26}
+            fontWeight={700}
+            color="#333333"
+            uppercase
+          >
+            ฿ {price}
+          </Typography>
+          <ReadyToShip xs={xs}>
+            <Typography
+              fontSize={12}
+              lineHeight={13}
+              fontWeight={700}
+              color="#584207"
+            >
+              Ready to ship
+            </Typography>
+          </ReadyToShip>
+        </BoxPrice>
+      )}
+      <Options
+        direction="vertical"
+        size={xs ? 20 : isMd ? 12 : 30}
+        md={isMd}
+        xs={xs}
+      >
         {size && (
           <Size
             size={size}
@@ -143,48 +221,52 @@ const Details = ({
             setActiveColor={setActiveColor}
           />
         )}
-        <ReadyToShip md={isMd}>
-          <Typography
-            fontSize={isMd ? 12 : 18}
-            lineHeight={isMd ? 13 : 20}
-            fontWeight={700}
-            color="#584207"
-          >
-            Ready to ship
-          </Typography>
-        </ReadyToShip>
+        {xs === 0 && (
+          <ReadyToShip md={isMd}>
+            <Typography
+              fontSize={isMd ? 12 : 18}
+              lineHeight={isMd ? 13 : 20}
+              fontWeight={700}
+              color="#584207"
+            >
+              Ready to ship
+            </Typography>
+          </ReadyToShip>
+        )}
       </Options>
-      <Box justify="space-between" align="center">
-        <Typography
-          fontSize={isMd ? 22 : 36}
-          lineHeight={isMd ? 24 : 39}
-          fontWeight={700}
-          color="#333333"
-          uppercase
-        >
-          Pirce
-        </Typography>
-        <Typography
-          fontSize={isMd ? 22 : 36}
-          lineHeight={isMd ? 24 : 39}
-          fontWeight={700}
-          color="#333333"
-          uppercase
-        >
-          ฿ {price}
-        </Typography>
-      </Box>
-      <OrderButton justify="center" align="center" md={isMd}>
+      {xs === 0 && (
+        <Box justify="space-between" align="center">
+          <Typography
+            fontSize={isMd ? 22 : 36}
+            lineHeight={isMd ? 24 : 39}
+            fontWeight={700}
+            color="#333333"
+            uppercase
+          >
+            Pirce
+          </Typography>
+          <Typography
+            fontSize={isMd ? 22 : 36}
+            lineHeight={isMd ? 24 : 39}
+            fontWeight={700}
+            color="#333333"
+            uppercase
+          >
+            ฿ {price}
+          </Typography>
+        </Box>
+      )}
+      <OrderButton justify="center" align="center" md={isMd} xs={xs}>
         <Box justify="center" align="center">
           <Typography
-            fontSize={isMd ? 18 : 28}
-            lineHeight={isMd ? 20 : 30}
+            fontSize={xs ? 16 : isMd ? 18 : 28}
+            lineHeight={xs ? 17 : isMd ? 20 : 30}
             fontWeight={700}
             color="#FFFFFF"
           >
             Order via
           </Typography>
-          <IconLine component={line_icon} md={isMd} />
+          <IconLine component={line_icon} md={isMd} xs={xs} />
         </Box>
       </OrderButton>
     </Container>

@@ -19,6 +19,13 @@ const PreviewContainer = styled(Box)`
     css`
       height: 356px;
     `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      height: 428px;
+      margin-bottom: 20px;
+    `};
 `;
 
 const ImageContainer = styled(Image)`
@@ -30,6 +37,13 @@ const ImageContainer = styled(Image)`
     css`
       width: 250px;
       height: 250px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      width: 300px;
+      height: 300px;
     `};
 `;
 
@@ -46,6 +60,14 @@ const IconExpend = styled(Icon)`
       font-size: 15px;
       top: 9px;
       right: 9px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      font-size: 18px;
+      top: 11px;
+      right: 11px;
     `};
 `;
 
@@ -102,8 +124,12 @@ const IconControl = styled(Icon)`
     `};
 `;
 
+const SliderImageWrapper = styled.div`
+  position: relative;
+`;
+
 const PreviewImage = ({ images, activeColor }) => {
-  const { width } = useResponsive();
+  const { width, xs } = useResponsive();
   const [imageList, setImageList] = useState([]);
   const [activeImage, setActiveImage] = useState("");
   const [visible, setVisible] = useState(false);
@@ -126,7 +152,7 @@ const PreviewImage = ({ images, activeColor }) => {
     }
   }, [activeColor, images]);
 
-  const displaImageList = useMemo(
+  const displayImageList = useMemo(
     () =>
       imageList?.map((image, index) => (
         <ImageSildeContainer
@@ -141,54 +167,104 @@ const PreviewImage = ({ images, activeColor }) => {
     [imageList, isMd]
   );
 
-  return (
-    <>
-      <PreviewContainer justify="center" align="center" md={isMd}>
-        {activeImage && (
-          <ImageContainer
-            src={activeImage}
-            md={isMd}
-            preview={{
-              visible,
-              mask: null,
-              onVisibleChange: () => setVisible(false),
-            }}
-          />
-        )}
-        <IconExpend
-          component={expand_icon}
-          onClick={() => setVisible(true)}
-          md={isMd}
-        />
-      </PreviewContainer>
-      <SliderContainer md={isMd}>
+  const displayImageSlide = useMemo(
+    () => (
+      <SliderImageWrapper>
         <Slider
           ref={slider}
-          slidesToShow={width < 680 ? 2 : 3}
+          slidesToShow={1}
           slidesToScroll={1}
-          arrows={true}
-          nextArrow={
-            <IconControl
-              component={arrow_active_icon}
-              md={isMd}
-              onClick={() => slider?.current?.slickNext()}
-            />
-          }
-          prevArrow={
-            <IconControl
-              component={arrow_active_icon}
-              deg="180deg"
-              md={isMd}
-              onClick={() => slider?.current?.slickPrev()}
-            />
-          }
+          arrows={false}
+          dots={true}
           afterChange={(currentSlide) =>
             setActiveImage(imageList[currentSlide])
           }
         >
-          {displaImageList}
+          {imageList?.map((image, index) => (
+            <PreviewContainer
+              key={index}
+              justify="center"
+              align="center"
+              xs={xs}
+            >
+              <ImageContainer
+                src={image}
+                xs={xs}
+                preview={{
+                  visible: visible && activeImage === image,
+                  mask: null,
+                  onVisibleChange: () => {
+                    setActiveImage(image);
+                    setVisible(false);
+                  },
+                }}
+              />
+            </PreviewContainer>
+          ))}
         </Slider>
-      </SliderContainer>
+        <IconExpend
+          component={expand_icon}
+          onClick={() => setVisible(true)}
+          xs={xs}
+        />
+      </SliderImageWrapper>
+    ),
+    [xs, imageList, activeImage, visible]
+  );
+
+  return (
+    <>
+      {xs === 0 && (
+        <PreviewContainer justify="center" align="center" md={isMd}>
+          {activeImage && (
+            <ImageContainer
+              src={activeImage}
+              md={isMd}
+              preview={{
+                visible,
+                mask: null,
+                onVisibleChange: () => setVisible(false),
+              }}
+            />
+          )}
+          <IconExpend
+            component={expand_icon}
+            onClick={() => setVisible(true)}
+            md={isMd}
+          />
+        </PreviewContainer>
+      )}
+      {xs === 0 && (
+        <SliderContainer md={isMd}>
+          <Slider
+            ref={slider}
+            slidesToShow={width < 680 ? 2 : 3}
+            slidesToScroll={1}
+            arrows={true}
+            nextArrow={
+              <IconControl
+                component={arrow_active_icon}
+                md={isMd}
+                onClick={() => slider?.current?.slickNext()}
+              />
+            }
+            prevArrow={
+              <IconControl
+                component={arrow_active_icon}
+                deg="180deg"
+                md={isMd}
+                onClick={() => slider?.current?.slickPrev()}
+              />
+            }
+            afterChange={(currentSlide) =>
+              setActiveImage(imageList[currentSlide])
+            }
+          >
+            {displayImageList}
+          </Slider>
+        </SliderContainer>
+      )}
+      {xs === 1 && displayImageSlide}
     </>
   );
 };

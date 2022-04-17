@@ -48,12 +48,17 @@ const Container = styled.div`
 
       .ant-breadcrumb {
         margin-bottom: 12px;
+        margin-left: 17px;
       }
 
       .ant-breadcrumb,
       .ant-breadcrumb-separator {
         font-size: 12px;
         line-height: 13px;
+      }
+
+      .slick-dots {
+        bottom: 30px;
       }
     `};
 `;
@@ -92,16 +97,16 @@ const ProductDetail = () => {
     <Layout>
       <Container md={md} xs={xs}>
         <Row>
-          <Col span={20} offset={2}>
+          <Col span={xs ? 24 : 20} offset={xs ? 0 : 2}>
             {breadcrumbList}
             <Row>
-              <Col span={12}>
+              <Col span={xs ? 24 : 12}>
                 <PreviewImage
                   images={productDetail?.images}
                   activeColor={activeColor}
                 />
               </Col>
-              <Col span={12}>
+              <Col span={xs ? 24 : 12}>
                 <Details
                   productName={productDetail?.name?.[language]}
                   productOwner={productDetail?.owner?.[language]}
@@ -116,7 +121,7 @@ const ProductDetail = () => {
               </Col>
             </Row>
           </Col>
-          <Col offset={2} />
+          <Col offset={xs ? 0 : 2} />
         </Row>
       </Container>
     </Layout>
