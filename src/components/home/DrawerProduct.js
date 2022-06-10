@@ -1,15 +1,14 @@
 import { memo, useMemo } from "react";
 import { useResponsive } from "../../utils/useResponsive";
 import { useLanguage } from "../../utils/useLanguage";
-import { productList } from "../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
-import { Drawer, Image, Space } from "antd";
+import { Drawer, Image, Skeleton, Space } from "antd";
 import Icon from "@ant-design/icons";
 import { ReactComponent as close_icon } from "../../assets/icons/close.svg";
-import banner_image from "../../assets/image/mock_banner.png";
 import Typography from "../../center_components/Typography";
 import RelatedProductCard from "../../center_components/product/RelatedProductCard";
+import useSWR from "swr";
 
 const DrawerContainer = styled(Drawer)`
   .ant-drawer-header {
@@ -81,9 +80,15 @@ const TitleMobile = styled(BoxTitle)`
   }
 `;
 
-const DrawerProduct = ({ visible, onClose }) => {
+const DrawerProduct = ({ visible, bannerId, bannerImage, onClose }) => {
   const { xs } = useResponsive();
   const { language } = useLanguage();
+
+  const apiProductList = useMemo(() => {
+    return bannerId && `/list/banner/product/${bannerId}`;
+  }, [bannerId]);
+
+  const { data: productList } = useSWR(apiProductList);
 
   const titleDrawer = useMemo(
     () => (
@@ -135,21 +140,29 @@ const DrawerProduct = ({ visible, onClose }) => {
       closeIcon={null}
       xs={xs}
     >
-      {xs === 1 && <ImageContainer src={banner_image} preview={false} />}
-      <Space direction="vertical" size={xs ? 40 : 44}>
-        {productList.map((product) => (
-          <RelatedProductCard
-            key={product.id}
-            productId={product.id}
-            image={product.coverImage}
-            name={product.name[language]}
-            category={product.category[language]}
-            owner={product.owner[language]}
-            price={product.price}
-            newPrice={product?.newPrice}
-          />
-        ))}
-      </Space>
+      {!productList && (
+        <Space direction="vertical" size={xs ? 40 : 44}>
+          <Skeleton active />
+          <Skeleton active />
+          <Skeleton active />
+        </Space>
+      )}
+      {xs === 1 && <ImageContainer src={bannerImage} preview={false} />}
+      {productList && (
+        <Space direction="vertical" size={xs ? 40 : 44}>
+          {productList.map((product) => (
+            <RelatedProductCard
+              key={product.productId}
+              productId={product.productId}
+              image={product.image}
+              name={product.productName[language]}
+              category={product.category[language]}
+              owner={product.productOwner[language]}
+              price={product.price}
+            />
+          ))}
+        </Space>
+      )}
     </DrawerContainer>
   );
 };

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Spin } from "antd";
 
 export const Box = styled.div`
   display: flex !important;
@@ -14,4 +15,11 @@ export const TextOverFlow = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: ${({ line }) => line || 2};
   -webkit-box-orient: vertical;
+`;
+
+export const SpinLoading = styled(Spin)`
+  max-height: initial;
+  .ant-spin-dot-item {
+    background-color: #044700;
+  }
 `;

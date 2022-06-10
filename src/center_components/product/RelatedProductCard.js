@@ -34,7 +34,8 @@ const ImageContainer = styled(Box)`
 
 const DetailContainer = styled(Box)`
   height: 166px;
-
+  width: 50%;
+  
   ${({ xs }) =>
     xs &&
     css`
