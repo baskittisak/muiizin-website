@@ -9,7 +9,6 @@ import Layout from "../../center_components/layout/Layout";
 import AllFilters from "./Filters/AllFilters";
 import ProductCard from "../../center_components/product/ProductCard";
 import OrderBy from "./OrderBy";
-import Typography from "../../center_components/Typography";
 
 const Container = styled.div`
   margin: 168px 0 125px;
@@ -109,21 +108,6 @@ const ProductList = () => {
   const [orderBy, setOrderBy] = useState("asc");
   const [page, setPage] = useState(1);
 
-  const resultText = useMemo(
-    () =>
-      xs ? null : (
-        <Typography
-          fontSize={md ? 12 : 20}
-          lineHeight={md ? 13 : 22}
-          color="#828282"
-          uppercase
-        >
-          showing 1-12 of 30 relults
-        </Typography>
-      ),
-    [md, xs]
-  );
-
   const spanProduct = useMemo(() => {
     return xs && width <= 390
       ? 24
@@ -150,7 +134,6 @@ const ProductList = () => {
               <Col span={xs ? 24 : md ? 16 : 18}>
                 <HeaderList justify="space-between" align="center" xs={xs}>
                   <OrderBy orderBy={orderBy} setOrderBy={setOrderBy} />
-                  {resultText}
                 </HeaderList>
                 <Row gutter={[md ? 20 : 30, md ? 20 : 30]}>
                   {productList.map((product) => (
@@ -175,7 +158,6 @@ const ProductList = () => {
                       defaultCurrent={page}
                       onChange={(page) => setPage(page)}
                     />
-                    {resultText}
                   </FooterList>
                 )}
               </Col>
