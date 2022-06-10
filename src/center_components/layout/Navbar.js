@@ -47,7 +47,7 @@ const HamburgerContainer = styled(Box)`
 
 const MENU_NAVBAR = [
   { path: "/", title: "home" },
-  { path: "/product", title: "categories" },
+  { path: "/product", title: "product" },
 ];
 
 const Navbar = () => {
