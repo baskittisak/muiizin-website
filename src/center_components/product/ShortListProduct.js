@@ -7,7 +7,6 @@ import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
 import { Row, Col, Space } from "antd";
 import Icon from "@ant-design/icons";
-// import { ReactComponent as arrow_disabled_icon } from "../../assets/icons/arrow_disabled.svg";
 import { ReactComponent as arrow_active_icon } from "../../assets/icons/arrow_active.svg";
 import Slider from "react-slick";
 import Typography from "../Typography";

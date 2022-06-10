@@ -4,11 +4,16 @@ import styled, { css } from "styled-components";
 import { Image } from "antd";
 import banner_image from "../../assets/image/mock_banner.png";
 import DrawerProduct from "./DrawerProduct";
+import Slider from "react-slick";
 
 const Container = styled.div`
   margin-top: 120px;
   text-align: center;
   cursor: pointer;
+
+  .slick-dots {
+    bottom: 10px;
+  }
 
   ${({ md }) =>
     md &&
@@ -47,13 +52,30 @@ const Banner = () => {
 
   return (
     <Container md={md} xs={xs}>
-      <ImageContainer
-        src={banner_image}
-        preview={false}
-        md={md}
-        xs={xs}
-        onClick={() => setVisible(true)}
-      />
+      <Slider slidesToShow={1} slidesToScroll={1} arrows={false} dots={true}>
+        <ImageContainer
+          src={banner_image}
+          preview={false}
+          md={md}
+          xs={xs}
+          onClick={() => setVisible(true)}
+        />
+        <ImageContainer
+          src={banner_image}
+          preview={false}
+          md={md}
+          xs={xs}
+          onClick={() => setVisible(true)}
+        />
+        <ImageContainer
+          src={banner_image}
+          preview={false}
+          md={md}
+          xs={xs}
+          onClick={() => setVisible(true)}
+        />
+      </Slider>
+
       <DrawerProduct visible={visible} onClose={() => setVisible(false)} />
     </Container>
   );
