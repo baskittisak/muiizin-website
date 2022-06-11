@@ -152,13 +152,13 @@ const DrawerProduct = ({ visible, bannerId, bannerImage, onClose }) => {
         <Space direction="vertical" size={xs ? 40 : 44}>
           {productList.map((product) => (
             <RelatedProductCard
-              key={product.productId}
-              productId={product.productId}
-              image={product.image}
-              name={product.productName[language]}
-              category={product.category[language]}
-              owner={product.productOwner[language]}
-              price={product.price}
+              key={product?.productId}
+              productId={product?.productId}
+              image={product?.image}
+              name={product?.productName?.[language]}
+              category={product?.category?.[language]}
+              owner={product?.productOwner?.[language]}
+              price={product?.price}
             />
           ))}
         </Space>

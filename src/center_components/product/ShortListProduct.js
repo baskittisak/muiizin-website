@@ -2,7 +2,6 @@ import { memo, useMemo, useRef } from "react";
 import { useLanguage } from "../../utils/useLanguage";
 import { useResponsive } from "../../utils/useResponsive";
 import { useNavigate } from "react-router-dom";
-import { productList } from "../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
 import { Row, Col, Space } from "antd";
@@ -102,7 +101,12 @@ const SliderScroll = styled(Space)`
   align-items: flex-start;
 `;
 
-const ShortListProduct = ({ title, hiddenViewMore, paddingBottom }) => {
+const ShortListProduct = ({
+  title,
+  productList = [],
+  hiddenViewMore,
+  paddingBottom,
+}) => {
   const { language } = useLanguage();
   const { width, md, xs } = useResponsive();
   const navigate = useNavigate();
@@ -120,19 +124,18 @@ const ShortListProduct = ({ title, hiddenViewMore, paddingBottom }) => {
 
   const displaProductList = useMemo(
     () =>
-      productList.map((product) => (
+      productList?.map((product) => (
         <ProductCard
-          key={product.id}
-          productId={product.id}
-          image={product.coverImage}
-          name={product.name[language]}
-          category={product.category[language]}
-          owner={product.owner[language]}
-          price={product.price}
-          newPrice={product?.newPrice}
+          key={product?.productId}
+          productId={product?.productId}
+          image={product?.image}
+          name={product?.productName?.[language]}
+          category={product?.category?.[language]}
+          owner={product?.productOwner?.[language]}
+          price={product?.price}
         />
       )),
-    [language]
+    [productList, language]
   );
 
   return (
