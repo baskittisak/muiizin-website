@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useResponsive } from "../../utils/useResponsive";
 import { useLanguage } from "../../utils/useLanguage";
 import { productList } from "../../resource/mock_data/productList";
@@ -109,13 +109,19 @@ const ProductList = () => {
   const { language } = useLanguage();
   const [orderBy, setOrderBy] = useState("asc");
   const [page, setPage] = useState(1);
+  const [categorieList, setCategorieList] = useState([]);
+  const [price, setPrice] = useState([1, 1]);
 
   const { data: categories } = useSWR("/list/category");
-  const { data: price } = useSWR("/max/price");
+  const { data: maxPrice } = useSWR("/max/price");
+
+  useEffect(() => {
+    maxPrice && setPrice([1, maxPrice?.maxPrice]);
+  }, [maxPrice]);
 
   const isLoading = useMemo(() => {
-    return !categories || !price;
-  }, [categories, price]);
+    return !categories || !maxPrice;
+  }, [categories, maxPrice]);
 
   const spanProduct = useMemo(() => {
     return xs && width <= 390
@@ -127,6 +133,26 @@ const ProductList = () => {
       : 8;
   }, [width, md, xs]);
 
+  const filters = useMemo(
+    () => (
+      <ColFilters
+        span={xs ? 24 : md ? 8 : 6}
+        is_md={md || width < 1320 ? 1 : 0}
+        is_xs={xs}
+      >
+        <AllFilters
+          categories={categories}
+          maxPrice={maxPrice?.maxPrice}
+          categorieList={categorieList}
+          price={price}
+          setCategorieList={setCategorieList}
+          setPrice={setPrice}
+        />
+      </ColFilters>
+    ),
+    [md, xs, width, categorieList, categories, maxPrice?.maxPrice, price]
+  );
+
   if (isLoading) return <LoadingIcon />;
 
   return (
@@ -135,16 +161,7 @@ const ProductList = () => {
         <Row>
           <Col span={20} offset={2}>
             <Row>
-              <ColFilters
-                span={xs ? 24 : md ? 8 : 6}
-                is_md={md || width < 1320 ? 1 : 0}
-                is_xs={xs}
-              >
-                <AllFilters
-                  categories={categories}
-                  maxPrice={price?.maxPrice}
-                />
-              </ColFilters>
+              {filters}
               <Col span={xs ? 24 : md ? 16 : 18}>
                 <HeaderList justify="space-between" align="center" xs={xs}>
                   <OrderBy orderBy={orderBy} setOrderBy={setOrderBy} />

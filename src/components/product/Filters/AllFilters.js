@@ -8,10 +8,10 @@ import { ReactComponent as close_icon } from "../../../assets/icons/close.svg";
 import Search from "./Search";
 import Categories from "./Categories";
 import Price from "./Price";
-// import Color from "./Color";
-// import Size from "./Size";
 import { Box } from "../../../styles/common";
 import Typography from "../../../center_components/Typography";
+// import Color from "./Color";
+// import Size from "./Size";
 
 const SpaceContainer = styled(Space)`
   width: 100%;
@@ -61,14 +61,19 @@ const ConfirmButton = styled(Box)`
   margin: 40px auto;
 `;
 
-const AllFilters = ({ categories, maxPrice }) => {
+const AllFilters = ({
+  categories,
+  maxPrice,
+  categorieList,
+  price,
+  setCategorieList,
+  setPrice,
+}) => {
   const { md, xs } = useResponsive();
   const [search, setSearch] = useState("");
-  const [categorieList, setCategorieList] = useState([]);
-  const [price, setPrice] = useState([1, maxPrice]);
+  const [visible, setVisible] = useState(false);
   // const [colorList, setColorList] = useState([]);
   // const [sizeList, setSizeList] = useState([]);
-  const [visible, setVisible] = useState(false);
 
   const filters = useMemo(
     () => (
@@ -79,11 +84,11 @@ const AllFilters = ({ categories, maxPrice }) => {
           setCategorieList={setCategorieList}
         />
         <Price maxPrice={maxPrice} price={price} setPrice={setPrice} />
-        {/* <Color colorList={colorList} setColorList={setColorList} />
-        <Size sizeList={sizeList} setSizeList={setSizeList} /> */}
+        {/* <Color colorList={colorList} setColorList={setColorList} />*/}
+        {/* <Size sizeList={sizeList} setSizeList={setSizeList} /> */}
       </SpaceContainer>
     ),
-    [md, categories, categorieList, maxPrice, price]
+    [md, categories, categorieList, maxPrice, price, setPrice, setCategorieList]
   );
 
   return (
