@@ -61,11 +61,11 @@ const ConfirmButton = styled(Box)`
   margin: 40px auto;
 `;
 
-const AllFilters = ({ categories }) => {
+const AllFilters = ({ categories, maxPrice }) => {
   const { md, xs } = useResponsive();
   const [search, setSearch] = useState("");
   const [categorieList, setCategorieList] = useState([]);
-  const [price, setPrice] = useState([1, 1000]);
+  const [price, setPrice] = useState([1, maxPrice]);
   // const [colorList, setColorList] = useState([]);
   // const [sizeList, setSizeList] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -78,12 +78,12 @@ const AllFilters = ({ categories }) => {
           categorieList={categorieList}
           setCategorieList={setCategorieList}
         />
-        <Price price={price} setPrice={setPrice} />
+        <Price maxPrice={maxPrice} price={price} setPrice={setPrice} />
         {/* <Color colorList={colorList} setColorList={setColorList} />
         <Size sizeList={sizeList} setSizeList={setSizeList} /> */}
       </SpaceContainer>
     ),
-    [md, categories, categorieList, price]
+    [md, categories, categorieList, maxPrice, price]
   );
 
   return (

@@ -111,10 +111,11 @@ const ProductList = () => {
   const [page, setPage] = useState(1);
 
   const { data: categories } = useSWR("/list/category");
+  const { data: price } = useSWR("/max/price");
 
   const isLoading = useMemo(() => {
-    return !categories;
-  }, [categories]);
+    return !categories || !price;
+  }, [categories, price]);
 
   const spanProduct = useMemo(() => {
     return xs && width <= 390
@@ -139,7 +140,10 @@ const ProductList = () => {
                 is_md={md || width < 1320 ? 1 : 0}
                 is_xs={xs}
               >
-                <AllFilters categories={categories} />
+                <AllFilters
+                  categories={categories}
+                  maxPrice={price?.maxPrice}
+                />
               </ColFilters>
               <Col span={xs ? 24 : md ? 16 : 18}>
                 <HeaderList justify="space-between" align="center" xs={xs}>

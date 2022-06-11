@@ -49,7 +49,7 @@ const InputContainer = styled(Input)`
     `};
 `;
 
-const Price = ({ price, setPrice }) => {
+const Price = ({ maxPrice, price, setPrice }) => {
   const { md } = useResponsive();
 
   const onSetPrice = useCallback(
@@ -68,7 +68,7 @@ const Price = ({ price, setPrice }) => {
       <SpaceContainer direction="vertical" size={md ? 12 : 20}>
         <Range
           min={1}
-          max={1000}
+          max={maxPrice}
           value={price}
           range
           onChange={setPrice}
@@ -79,7 +79,7 @@ const Price = ({ price, setPrice }) => {
           <InputContainer
             md={md}
             min={1}
-            max={1000}
+            max={maxPrice}
             type="number"
             value={price[0]}
             onChange={(e) => onSetPrice(0, e.target.value)}
@@ -96,7 +96,7 @@ const Price = ({ price, setPrice }) => {
           <InputContainer
             md={md}
             min={1}
-            max={1000}
+            max={maxPrice}
             type="number"
             value={price[1]}
             onChange={(e) => onSetPrice(1, e.target.value)}
