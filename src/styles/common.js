@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 export const Box = styled.div`
@@ -36,4 +36,13 @@ export const LoadingIcon = styled(LoadingOutlined)`
   svg path {
     fill: #044700;
   }
+`;
+
+export const EmptyData = styled(Empty)`
+  width: 100%;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;

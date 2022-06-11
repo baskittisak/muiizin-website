@@ -1,16 +1,16 @@
 import { memo, useEffect, useMemo, useState } from "react";
 import { useResponsive } from "../../utils/useResponsive";
 import { useLanguage } from "../../utils/useLanguage";
-import { productList } from "../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
-import { Box } from "../../styles/common";
-import { Col, Row, Pagination } from "antd";
+import { Box, EmptyData } from "../../styles/common";
+import { Col, Row, Pagination, Skeleton } from "antd";
 import Layout from "../../center_components/layout/Layout";
 import AllFilters from "./Filters/AllFilters";
 import ProductCard from "../../center_components/product/ProductCard";
 import OrderBy from "./OrderBy";
 import useSWR from "swr";
 import { LoadingIcon } from "../../styles/common";
+import { useDebounce } from "use-debounce";
 
 const Container = styled.div`
   margin: 168px 0 125px;
@@ -109,11 +109,25 @@ const ProductList = () => {
   const { language } = useLanguage();
   const [orderBy, setOrderBy] = useState("asc");
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const [categorieList, setCategorieList] = useState([]);
   const [price, setPrice] = useState([1, 1]);
 
+  const [searchValue] = useDebounce(search, 500);
+  const [priceRange] = useDebounce(price, 500);
+  const apiProductList = useMemo(() => {
+    const categoryIds = categorieList
+      ?.filter((category) => category?.checked)
+      ?.map((category) => category?.categoryId);
+    const isAll = categoryIds.includes(0) || categoryIds.length === 0;
+    const categoryQuery = !isAll ? `&categoryIds=${categoryIds}` : "";
+    const searchQuery = searchValue ? `&search=${searchValue}` : "";
+    return `/list/product?page=${page}&sort=${orderBy}&language=${language}&price=${priceRange}${searchQuery}${categoryQuery}`;
+  }, [categorieList, language, orderBy, page, searchValue, priceRange]);
+
   const { data: categories } = useSWR("/list/category");
   const { data: maxPrice } = useSWR("/max/price");
+  const { data: productList } = useSWR(apiProductList);
 
   useEffect(() => {
     maxPrice && setPrice([1, maxPrice?.maxPrice]);
@@ -143,15 +157,54 @@ const ProductList = () => {
         <AllFilters
           categories={categories}
           maxPrice={maxPrice?.maxPrice}
+          search={search}
           categorieList={categorieList}
           price={price}
+          setSearch={setSearch}
           setCategorieList={setCategorieList}
           setPrice={setPrice}
         />
       </ColFilters>
     ),
-    [md, xs, width, categorieList, categories, maxPrice?.maxPrice, price]
+    [
+      md,
+      xs,
+      width,
+      search,
+      categorieList,
+      categories,
+      maxPrice?.maxPrice,
+      price,
+    ]
   );
+
+  const isEmpty = useMemo(() => {
+    return productList && productList?.data?.length === 0;
+  }, [productList]);
+
+  const displayProduct = useMemo(() => {
+    if (!productList) {
+      return [...Array(12).keys()].map((_, index) => (
+        <ColProduct span={spanProduct} key={index}>
+          <Skeleton active />
+        </ColProduct>
+      ));
+    } else {
+      if (isEmpty) return <EmptyData description="ไม่พบสินค้า" />;
+      return productList?.data?.map((product) => (
+        <ColProduct span={spanProduct} key={product.productId}>
+          <ProductCard
+            productId={product?.productId}
+            image={product?.image}
+            name={product?.productName?.[language]}
+            category={product?.category?.[language]}
+            owner={product?.productOwner?.[language]}
+            price={product?.price}
+          />
+        </ColProduct>
+      ));
+    }
+  }, [language, productList, spanProduct, isEmpty]);
 
   if (isLoading) return <LoadingIcon />;
 
@@ -167,24 +220,13 @@ const ProductList = () => {
                   <OrderBy orderBy={orderBy} setOrderBy={setOrderBy} />
                 </HeaderList>
                 <Row gutter={[md ? 20 : 30, md ? 20 : 30]}>
-                  {productList.map((product) => (
-                    <ColProduct span={spanProduct} key={product.id}>
-                      <ProductCard
-                        productId={product.id}
-                        image={product.coverImage}
-                        name={product.name[language]}
-                        category={product.category[language]}
-                        owner={product.owner[language]}
-                        price={product.price}
-                        newPrice={product?.newPrice}
-                      />
-                    </ColProduct>
-                  ))}
+                  {displayProduct}
                 </Row>
-                {xs === 0 && (
+                {xs === 0 && !isEmpty && (
                   <FooterList justify="space-between" align="center">
                     <PaginationContainer
-                      total={50}
+                      pageSize={12}
+                      total={productList?.total}
                       wrap={width <= 703}
                       current={page}
                       onChange={setPage}

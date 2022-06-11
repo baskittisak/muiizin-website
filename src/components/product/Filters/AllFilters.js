@@ -64,13 +64,14 @@ const ConfirmButton = styled(Box)`
 const AllFilters = ({
   categories,
   maxPrice,
+  search,
   categorieList,
   price,
+  setSearch,
   setCategorieList,
   setPrice,
 }) => {
   const { md, xs } = useResponsive();
-  const [search, setSearch] = useState("");
   const [visible, setVisible] = useState(false);
   // const [colorList, setColorList] = useState([]);
   // const [sizeList, setSizeList] = useState([]);
