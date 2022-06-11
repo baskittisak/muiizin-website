@@ -155,8 +155,8 @@ const ProductList = () => {
                     <PaginationContainer
                       total={50}
                       wrap={width <= 703}
-                      defaultCurrent={page}
-                      onChange={(page) => setPage(page)}
+                      current={page}
+                      onChange={setPage}
                     />
                   </FooterList>
                 )}

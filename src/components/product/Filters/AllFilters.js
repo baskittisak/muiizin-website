@@ -8,8 +8,8 @@ import { ReactComponent as close_icon } from "../../../assets/icons/close.svg";
 import Search from "./Search";
 import Categories from "./Categories";
 import Price from "./Price";
-import Color from "./Color";
-import Size from "./Size";
+// import Color from "./Color";
+// import Size from "./Size";
 import { Box } from "../../../styles/common";
 import Typography from "../../../center_components/Typography";
 
@@ -66,8 +66,8 @@ const AllFilters = () => {
   const [search, setSearch] = useState("");
   const [categorieList, setCategorieList] = useState([]);
   const [price, setPrice] = useState([1, 1000]);
-  const [colorList, setColorList] = useState([]);
-  const [sizeList, setSizeList] = useState([]);
+  // const [colorList, setColorList] = useState([]);
+  // const [sizeList, setSizeList] = useState([]);
   const [visible, setVisible] = useState(false);
 
   const filters = useMemo(
@@ -78,11 +78,11 @@ const AllFilters = () => {
           setCategorieList={setCategorieList}
         />
         <Price price={price} setPrice={setPrice} />
-        <Color colorList={colorList} setColorList={setColorList} />
-        <Size sizeList={sizeList} setSizeList={setSizeList} />
+        {/* <Color colorList={colorList} setColorList={setColorList} />
+        <Size sizeList={sizeList} setSizeList={setSizeList} /> */}
       </SpaceContainer>
     ),
-    [md, categorieList, colorList, price, sizeList]
+    [md, categorieList, price]
   );
 
   return (
