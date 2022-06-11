@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export const Box = styled.div`
   display: flex !important;
@@ -21,5 +22,18 @@ export const SpinLoading = styled(Spin)`
   max-height: initial;
   .ant-spin-dot-item {
     background-color: #044700;
+  }
+`;
+
+export const LoadingIcon = styled(LoadingOutlined)`
+  font-size: 64px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg path {
+    fill: #044700;
   }
 `;

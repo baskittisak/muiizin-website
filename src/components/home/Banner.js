@@ -4,9 +4,7 @@ import styled, { css } from "styled-components";
 import { Image } from "antd";
 import DrawerProduct from "./DrawerProduct";
 import Slider from "react-slick";
-import useSWR from "swr";
 import { useLanguage } from "../../utils/useLanguage";
-import { SpinLoading } from "../../styles/common";
 
 const Container = styled.div`
   margin-top: 120px;
@@ -56,14 +54,12 @@ const ImageContainer = styled(Image)`
     `};
 `;
 
-const Banner = () => {
+const Banner = ({ bannerList }) => {
   const { md, xs } = useResponsive();
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [bannerId, setBannerId] = useState(0);
   const [bannerImage, setBannerImage] = useState("");
-
-  const { data: bannerList } = useSWR("/list/banner");
 
   const onClickBanner = useCallback((bannerId, bannerImage) => {
     setVisible(true);
@@ -95,19 +91,17 @@ const Banner = () => {
   }, [bannerList, language, md, xs, onClickBanner]);
 
   return (
-    <SpinLoading spinning={!bannerList}>
-      <Container md={md} xs={xs}>
-        <Slider slidesToShow={1} slidesToScroll={1} arrows={false} dots={true}>
-          {displayBannerList}
-        </Slider>
-        <DrawerProduct
-          visible={visible}
-          bannerId={bannerId}
-          bannerImage={bannerImage}
-          onClose={onClose}
-        />
-      </Container>
-    </SpinLoading>
+    <Container md={md} xs={xs}>
+      <Slider slidesToShow={1} slidesToScroll={1} arrows={false} dots={true}>
+        {displayBannerList}
+      </Slider>
+      <DrawerProduct
+        visible={visible}
+        bannerId={bannerId}
+        bannerImage={bannerImage}
+        onClose={onClose}
+      />
+    </Container>
   );
 };
 
