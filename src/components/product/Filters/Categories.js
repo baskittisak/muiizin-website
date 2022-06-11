@@ -9,31 +9,7 @@ const SpaceContainer = styled(Space)`
   width: 100%;
 `;
 
-const categories = [
-  {
-    key: "all",
-    value: {
-      en: "All",
-      th: "ทั้งหมด",
-    },
-  },
-  {
-    key: "bags",
-    value: {
-      en: "Bags",
-      th: "ทั้งหมด",
-    },
-  },
-  {
-    key: "hats",
-    value: {
-      en: "Hats",
-      th: "หมวก",
-    },
-  },
-];
-
-const Categories = ({ categorieList, setCategorieList }) => {
+const Categories = ({ categories, categorieList, setCategorieList }) => {
   const { language } = useLanguage();
 
   useEffect(() => {
@@ -41,18 +17,19 @@ const Categories = ({ categorieList, setCategorieList }) => {
       setCategorieList(() =>
         [...categories].map((categorie) => ({
           ...categorie,
-          checked: categorie.key === "all" || false,
+          checked: categorie?.categoryId === 0 || false,
         }))
       );
     }
-  }, [setCategorieList]);
+  }, [categories, setCategorieList]);
 
   const onChange = useCallback(
-    (id) => {
+    (categoryId) => {
       setCategorieList((prevState) => {
         const newCategorieList = [...prevState];
+        // const isAll = categoryId === 0;
         const activeKey = newCategorieList.find(
-          (categorie) => categorie.key === id
+          (categorie) => categorie?.categoryId === categoryId
         );
         if (activeKey) {
           activeKey.checked = !activeKey.checked;
@@ -68,10 +45,10 @@ const Categories = ({ categorieList, setCategorieList }) => {
       <SpaceContainer direction="vertical" size={10}>
         {categorieList.map((categorie) => (
           <Checkbox
-            key={categorie.key}
-            id={categorie.key}
-            value={categorie.value[language]}
-            checked={categorie.checked}
+            key={categorie?.categoryId}
+            id={categorie?.categoryId}
+            value={categorie?.category?.[language]}
+            checked={categorie?.checked}
             onChange={onChange}
           />
         ))}

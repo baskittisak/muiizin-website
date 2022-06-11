@@ -9,6 +9,8 @@ import Layout from "../../center_components/layout/Layout";
 import AllFilters from "./Filters/AllFilters";
 import ProductCard from "../../center_components/product/ProductCard";
 import OrderBy from "./OrderBy";
+import useSWR from "swr";
+import { LoadingIcon } from "../../styles/common";
 
 const Container = styled.div`
   margin: 168px 0 125px;
@@ -108,6 +110,12 @@ const ProductList = () => {
   const [orderBy, setOrderBy] = useState("asc");
   const [page, setPage] = useState(1);
 
+  const { data: categories } = useSWR("/list/category");
+
+  const isLoading = useMemo(() => {
+    return !categories;
+  }, [categories]);
+
   const spanProduct = useMemo(() => {
     return xs && width <= 390
       ? 24
@@ -117,6 +125,8 @@ const ProductList = () => {
       ? 12
       : 8;
   }, [width, md, xs]);
+
+  if (isLoading) return <LoadingIcon />;
 
   return (
     <Layout>
@@ -129,7 +139,7 @@ const ProductList = () => {
                 is_md={md || width < 1320 ? 1 : 0}
                 is_xs={xs}
               >
-                <AllFilters />
+                <AllFilters categories={categories} />
               </ColFilters>
               <Col span={xs ? 24 : md ? 16 : 18}>
                 <HeaderList justify="space-between" align="center" xs={xs}>

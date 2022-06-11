@@ -61,7 +61,7 @@ const ConfirmButton = styled(Box)`
   margin: 40px auto;
 `;
 
-const AllFilters = () => {
+const AllFilters = ({ categories }) => {
   const { md, xs } = useResponsive();
   const [search, setSearch] = useState("");
   const [categorieList, setCategorieList] = useState([]);
@@ -74,6 +74,7 @@ const AllFilters = () => {
     () => (
       <SpaceContainer direction="vertical" size={md ? 30 : 40}>
         <Categories
+          categories={categories}
           categorieList={categorieList}
           setCategorieList={setCategorieList}
         />
@@ -82,7 +83,7 @@ const AllFilters = () => {
         <Size sizeList={sizeList} setSizeList={setSizeList} /> */}
       </SpaceContainer>
     ),
-    [md, categorieList, price]
+    [md, categories, categorieList, price]
   );
 
   return (
