@@ -27,12 +27,24 @@ const Categories = ({ categories, categorieList, setCategorieList }) => {
     (categoryId) => {
       setCategorieList((prevState) => {
         const newCategorieList = [...prevState];
-        // const isAll = categoryId === 0;
+        const isAll = categoryId === 0;
         const activeKey = newCategorieList.find(
-          (categorie) => categorie?.categoryId === categoryId
+          (category) => category?.categoryId === categoryId
         );
         if (activeKey) {
           activeKey.checked = !activeKey.checked;
+        }
+        if (isAll && activeKey.checked) {
+          newCategorieList.forEach((category) => (category.checked = false));
+          activeKey.checked = true;
+        }
+        if (!isAll) {
+          const activeKeyAll = newCategorieList.find(
+            (category) => category?.categoryId === 0
+          );
+          if (activeKeyAll) {
+            activeKeyAll.checked = false;
+          }
         }
         return newCategorieList;
       });

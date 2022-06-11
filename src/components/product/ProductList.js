@@ -111,7 +111,7 @@ const ProductList = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [categorieList, setCategorieList] = useState([]);
-  const [price, setPrice] = useState([1, 1]);
+  const [price, setPrice] = useState([]);
 
   const [searchValue] = useDebounce(search, 500);
   const [priceRange] = useDebounce(price, 500);
@@ -132,6 +132,10 @@ const ProductList = () => {
   useEffect(() => {
     maxPrice && setPrice([1, maxPrice?.maxPrice]);
   }, [maxPrice]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchValue, priceRange, categorieList]);
 
   const isLoading = useMemo(() => {
     return !categories || !maxPrice;
@@ -179,8 +183,12 @@ const ProductList = () => {
   );
 
   const isEmpty = useMemo(() => {
-    return productList && productList?.data?.length === 0;
-  }, [productList]);
+    return (
+      productList &&
+      (!searchValue || priceRange.length !== 0) &&
+      productList?.data?.length === 0
+    );
+  }, [productList, searchValue, priceRange]);
 
   const displayProduct = useMemo(() => {
     if (!productList) {
