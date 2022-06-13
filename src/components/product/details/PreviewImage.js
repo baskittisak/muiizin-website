@@ -74,9 +74,11 @@ const IconExpend = styled(Icon)`
 const SliderContainer = styled.div`
   margin-top: 22px;
 
-  .slick-slide {
+  .slick-slide,
+  .slick-slider {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   ${({ md }) =>
@@ -127,6 +129,23 @@ const IconControl = styled(Icon)`
 const SliderImageWrapper = styled.div`
   position: relative;
 `;
+
+const ArrowLeft = ({ isMd, slider }) => (
+  <IconControl
+    component={arrow_active_icon}
+    md={isMd}
+    deg="180deg"
+    onClick={() => slider?.current?.slickPrev()}
+  />
+);
+
+const ArrowRight = ({ isMd, slider }) => (
+  <IconControl
+    component={arrow_active_icon}
+    md={isMd}
+    onClick={() => slider?.current?.slickNext()}
+  />
+);
 
 const PreviewImage = ({ images, activeColor }) => {
   const { width, xs } = useResponsive();
@@ -241,21 +260,8 @@ const PreviewImage = ({ images, activeColor }) => {
             slidesToShow={width < 680 ? 2 : 3}
             slidesToScroll={1}
             arrows={true}
-            nextArrow={
-              <IconControl
-                component={arrow_active_icon}
-                md={isMd}
-                onClick={() => slider?.current?.slickNext()}
-              />
-            }
-            prevArrow={
-              <IconControl
-                component={arrow_active_icon}
-                deg="180deg"
-                md={isMd}
-                onClick={() => slider?.current?.slickPrev()}
-              />
-            }
+            nextArrow={<ArrowRight isMd={isMd} slider={slider} />}
+            prevArrow={<ArrowLeft isMd={isMd} slider={slider} />}
             afterChange={(currentSlide) =>
               setActiveImage(imageList[currentSlide])
             }
