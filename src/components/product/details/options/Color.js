@@ -61,18 +61,18 @@ const Color = ({ colorList, activeColor, setActiveColor }) => {
   }, [width]);
 
   const displaySizeList = useMemo(() => {
-    return colorList.map((color, index) => {
-      const isActive = color === activeColor;
+    return colorList?.map((color) => {
+      const isActive = color?.id === activeColor;
       return (
         <ColorBox
-          key={index}
+          key={color?.id}
           justify="center"
           align="center"
           active={isActive}
           md={isMd}
-          onClick={() => setActiveColor(color)}
+          onClick={() => setActiveColor(color?.id)}
         >
-          <DisplayColor color={color} md={isMd} />
+          <DisplayColor color={color?.code} md={isMd} />
         </ColorBox>
       );
     });

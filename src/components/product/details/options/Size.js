@@ -38,7 +38,7 @@ const SizeBox = styled(Box)`
     `};
 `;
 
-const Size = ({ size, activeSize, setActiveSize }) => {
+const Size = ({ sizes, activeSize, setActiveSize }) => {
   const { width } = useResponsive();
 
   const isMd = useMemo(() => {
@@ -46,16 +46,16 @@ const Size = ({ size, activeSize, setActiveSize }) => {
   }, [width]);
 
   const sizeList = useMemo(() => {
-    return size.map((size, index) => {
-      const isActive = size === activeSize;
+    return sizes?.map((size) => {
+      const isActive = size?.id === activeSize;
       return (
         <SizeBox
-          key={index}
+          key={size?.id}
           justify="center"
           align="center"
           active={isActive}
           md={isMd}
-          onClick={() => setActiveSize(size)}
+          onClick={() => setActiveSize(size?.id)}
         >
           <Typography
             fontSize={isMd ? 12 : 18}
@@ -63,12 +63,12 @@ const Size = ({ size, activeSize, setActiveSize }) => {
             fontWeight={isActive ? 700 : 400}
             color={isActive ? "#4F4F4F" : "#828282"}
           >
-            {size}
+            {size?.name}
           </Typography>
         </SizeBox>
       );
     });
-  }, [isMd, size, activeSize, setActiveSize]);
+  }, [isMd, sizes, activeSize, setActiveSize]);
 
   return (
     <Space direction="vertical" size={isMd ? 10 : 15}>

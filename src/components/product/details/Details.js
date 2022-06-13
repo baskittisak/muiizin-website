@@ -139,9 +139,10 @@ const BoxPrice = styled(Box)`
 const Details = ({
   productName,
   productOwner,
-  size,
-  color,
+  sizes,
+  colorList,
   price,
+  status,
   activeSize,
   setActiveSize,
   activeColor,
@@ -196,7 +197,7 @@ const Details = ({
               fontWeight={700}
               color="#584207"
             >
-              Ready to ship
+              {status}
             </Typography>
           </ReadyToShip>
         </BoxPrice>
@@ -207,16 +208,16 @@ const Details = ({
         md={isMd}
         xs={xs}
       >
-        {size && (
+        {sizes && (
           <Size
-            size={size}
+            sizes={sizes}
             activeSize={activeSize}
             setActiveSize={setActiveSize}
           />
         )}
-        {color && (
+        {colorList && (
           <Color
-            colorList={color}
+            colorList={colorList}
             activeColor={activeColor}
             setActiveColor={setActiveColor}
           />
@@ -229,7 +230,7 @@ const Details = ({
               fontWeight={700}
               color="#584207"
             >
-              Ready to ship
+              {status}
             </Typography>
           </ReadyToShip>
         )}

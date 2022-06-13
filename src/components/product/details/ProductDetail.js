@@ -2,7 +2,6 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { useResponsive } from "../../../utils/useResponsive";
 import { useQuery } from "../../../utils/useQuery";
 import { useLanguage } from "../../../utils/useLanguage";
-import { productList } from "../../../resource/mock_data/productList";
 import styled, { css } from "styled-components";
 import Layout from "../../../center_components/layout/Layout";
 import { Breadcrumb, Col, Row } from "antd";
@@ -10,6 +9,8 @@ import PreviewImage from "./PreviewImage";
 import Details from "./Details";
 import Description from "./Description";
 import ShortListProduct from "../../../center_components/product/ShortListProduct";
+import useSWR from "swr";
+import { LoadingIcon } from "../../../styles/common";
 
 const Container = styled.div`
   margin: 145px 0 150px;
@@ -88,48 +89,38 @@ const ProductDetail = () => {
   const [activeSize, setActiveSize] = useState("");
   const [activeColor, setActiveColor] = useState("");
 
-  const productDetail = useMemo(() => {
-    return productList?.find((product) => "" + product?.id === productId);
+  const apiProduct = useMemo(() => {
+    return productId && `/product/${productId}`;
   }, [productId]);
 
+  const { data: product } = useSWR(apiProduct);
+
   const productDescription = useMemo(() => {
-    return `<strong>Lorem ipsum dolor sit amet</strong>\n
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>\n\n
-    <strong>Lorem ipsum dolor sit amet</strong>\n
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>\n\n
-    <strong>Lorem ipsum dolor sit amet</strong>\n
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>\n\n
-    <strong>Lorem ipsum dolor sit amet</strong>\n
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae. Faucibus faucibus convallis dictum aliquet tempor ullamcorper donec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae quis faucibus consequat facilisi vitae.</p>
-    `;
-  }, []);
+    return product?.description?.[language];
+  }, [language, product?.description]);
 
   useEffect(() => {
-    productDetail?.size && setActiveSize(productDetail?.size[0]);
-  }, [productDetail?.size]);
+    product?.isOption && product?.sizes && setActiveSize(product?.sizes[0]?.id);
+  }, [product?.isOption, product?.sizes]);
 
   useEffect(() => {
-    productDetail?.color && setActiveColor(productDetail?.color[0]);
-  }, [productDetail?.color]);
+    product?.isOption &&
+      product?.images?.[0]?.code &&
+      setActiveColor(product?.images?.[0]?.id);
+  }, [product?.images, product?.isOption]);
 
   const breadcrumbList = useMemo(
     () => (
       <Breadcrumb separator="|">
         <Breadcrumb.Item>CATEGORIES</Breadcrumb.Item>
-        <Breadcrumb.Item>{productDetail?.category?.[language]}</Breadcrumb.Item>
-        <Breadcrumb.Item>{productDetail?.name?.[language]}</Breadcrumb.Item>
+        <Breadcrumb.Item>{product?.category?.[language]}</Breadcrumb.Item>
+        <Breadcrumb.Item>{product?.productName?.[language]}</Breadcrumb.Item>
       </Breadcrumb>
     ),
-    [language, productDetail?.category, productDetail?.name]
+    [language, product?.category, product?.productName]
   );
+
+  if (!product) return <LoadingIcon />;
 
   return (
     <Layout>
@@ -140,17 +131,18 @@ const ProductDetail = () => {
             <RowContainer md={md} xs={xs}>
               <Col span={xs ? 24 : 12}>
                 <PreviewImage
-                  images={productDetail?.images}
+                  images={product?.images}
                   activeColor={activeColor}
                 />
               </Col>
               <Col span={xs ? 24 : 12}>
                 <Details
-                  productName={productDetail?.name?.[language]}
-                  productOwner={productDetail?.owner?.[language]}
-                  size={productDetail?.size || false}
-                  color={productDetail?.color || false}
-                  price={productDetail?.price}
+                  productName={product?.productName?.[language]}
+                  productOwner={product?.productOwner?.[language]}
+                  sizes={product?.isOption && product?.sizes}
+                  colorList={product?.isOption && activeColor && product?.images}
+                  price={product?.price}
+                  status={product?.status?.[language]}
                   activeSize={activeSize}
                   setActiveSize={setActiveSize}
                   activeColor={activeColor}

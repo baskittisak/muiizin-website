@@ -159,15 +159,15 @@ const PreviewImage = ({ images, activeColor }) => {
   }, [width]);
 
   useEffect(() => {
-    if (images[0]?.color !== undefined && activeColor) {
+    if (images[0]?.code !== undefined && activeColor) {
       const imagesActiveColor = images?.find(
-        (image) => image?.color === activeColor
-      )?.list;
+        (image) => image?.id === activeColor
+      )?.images;
       setImageList(imagesActiveColor);
-      setActiveImage(imagesActiveColor[0]);
+      setActiveImage(imagesActiveColor[0]?.image);
     } else {
       setImageList(images);
-      setActiveImage(images[0]);
+      setActiveImage(images[0]?.image);
     }
   }, [activeColor, images]);
 
@@ -180,7 +180,7 @@ const PreviewImage = ({ images, activeColor }) => {
           align="center"
           md={isMd}
         >
-          <ImageSilde src={image} preview={false} md={isMd} />
+          <ImageSilde src={image?.image} preview={false} md={isMd} />
         </ImageSildeContainer>
       )),
     [imageList, isMd]
@@ -196,7 +196,7 @@ const PreviewImage = ({ images, activeColor }) => {
           arrows={false}
           dots={true}
           afterChange={(currentSlide) =>
-            setActiveImage(imageList[currentSlide])
+            setActiveImage(imageList[currentSlide]?.image)
           }
         >
           {imageList?.map((image, index) => (
@@ -207,13 +207,13 @@ const PreviewImage = ({ images, activeColor }) => {
               xs={xs}
             >
               <ImageContainer
-                src={image}
+                src={image?.image}
                 xs={xs}
                 preview={{
-                  visible: visible && activeImage === image,
+                  visible: visible && activeImage === image?.image,
                   mask: null,
                   onVisibleChange: () => {
-                    setActiveImage(image);
+                    setActiveImage(image?.image);
                     setVisible(false);
                   },
                 }}
@@ -263,7 +263,7 @@ const PreviewImage = ({ images, activeColor }) => {
             nextArrow={<ArrowRight isMd={isMd} slider={slider} />}
             prevArrow={<ArrowLeft isMd={isMd} slider={slider} />}
             afterChange={(currentSlide) =>
-              setActiveImage(imageList[currentSlide])
+              setActiveImage(imageList[currentSlide]?.image)
             }
           >
             {displayImageList}
