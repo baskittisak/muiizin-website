@@ -204,11 +204,13 @@ const Details = ({
           </ReadyToShip>
         </BoxPrice>
       )}
+      {}
       <Options
         direction="vertical"
         size={xs ? 20 : isMd ? 12 : 30}
         md={isMd}
         xs={xs}
+        hidden={xs && !sizes && !colorList}
       >
         {sizes && (
           <Size
