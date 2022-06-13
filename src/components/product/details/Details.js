@@ -261,7 +261,13 @@ const Details = ({
           </Typography>
         </Box>
       )}
-      <OrderButton justify="center" align="center" md={isMd} xs={xs}>
+      <OrderButton
+        justify="center"
+        align="center"
+        md={isMd}
+        xs={xs}
+        onClick={() => window.open("https://lin.ee/RaywQDP")}
+      >
         <Box justify="center" align="center">
           <Typography
             fontSize={xs ? 16 : isMd ? 18 : 28}
@@ -269,7 +275,7 @@ const Details = ({
             fontWeight={700}
             color="#FFFFFF"
           >
-            {t("orde_via")}
+            {t("order_via")}
           </Typography>
           <IconLine component={line_icon} md={isMd} xs={xs} />
         </Box>
