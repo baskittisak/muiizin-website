@@ -97,6 +97,16 @@ const ProductDetail = () => {
 
   const { data: product } = useSWR(apiProduct);
 
+  const apiRelatedProducts = useMemo(() => {
+    return (
+      productId &&
+      product?.categoryId &&
+      `/list/product/related/${product?.categoryId}`
+    );
+  }, [productId, product?.categoryId]);
+
+  const { data: relatedProducts } = useSWR(apiRelatedProducts);
+
   const productDescription = useMemo(() => {
     return product?.description?.[language];
   }, [language, product?.description]);
@@ -122,7 +132,7 @@ const ProductDetail = () => {
     [language, product?.category, product?.productName, t]
   );
 
-  if (!product) return <LoadingIcon />;
+  if (!product || !relatedProducts) return <LoadingIcon />;
 
   return (
     <Layout>
@@ -160,6 +170,7 @@ const ProductDetail = () => {
         </Row>
         <ShortListProduct
           title={t("related_products")}
+          productList={relatedProducts}
           hiddenViewMore={true}
           paddingBottom="0px"
         />

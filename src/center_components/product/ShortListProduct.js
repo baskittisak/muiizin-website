@@ -124,6 +124,10 @@ const ShortListProduct = ({
       : 4;
   }, [width, md]);
 
+  const isHiddenArrow = useMemo(() => {
+    return productList?.length <= 4;
+  }, [productList?.length]);
+
   const displaProductList = useMemo(
     () =>
       productList?.map((product) => (
@@ -156,7 +160,7 @@ const ShortListProduct = ({
             </Typography>
             <Line align={xs && "center"} md={md} />
           </Space>
-          {xs === 0 && (
+          {xs === 0 && !isHiddenArrow && (
             <Space size={md ? 7 : 12}>
               <IconControl
                 component={arrow_active_icon}
