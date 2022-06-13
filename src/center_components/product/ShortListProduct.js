@@ -10,6 +10,7 @@ import { ReactComponent as arrow_active_icon } from "../../assets/icons/arrow_ac
 import Slider from "react-slick";
 import Typography from "../Typography";
 import ProductCard from "./ProductCard";
+import { useTranslation } from "react-i18next";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
@@ -109,6 +110,7 @@ const ShortListProduct = ({
 }) => {
   const { language } = useLanguage();
   const { width, md, xs } = useResponsive();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const slider = useRef();
 
@@ -197,7 +199,7 @@ const ShortListProduct = ({
               color="#044700"
               uppercase
             >
-              View More
+              {t("view_more")}
             </Typography>
           </ViewMore>
         )}

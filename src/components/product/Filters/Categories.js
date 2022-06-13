@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
 import FiltersCard from "./FiltersCard";
+import { useTranslation } from "react-i18next";
 
 const SpaceContainer = styled(Space)`
   width: 100%;
@@ -11,6 +12,7 @@ const SpaceContainer = styled(Space)`
 
 const Categories = ({ categories, categorieList, setCategorieList }) => {
   const { language } = useLanguage();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (categories) {
@@ -53,7 +55,7 @@ const Categories = ({ categories, categorieList, setCategorieList }) => {
   );
 
   return (
-    <FiltersCard title="CATEGORIES">
+    <FiltersCard title={t("categories")}>
       <SpaceContainer direction="vertical" size={10}>
         {categorieList.map((categorie) => (
           <Checkbox

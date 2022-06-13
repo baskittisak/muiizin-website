@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import { Box, TextOverFlow } from "../../styles/common";
 import { Image, Space } from "antd";
 import Typography from "../Typography";
+import { useTranslation } from "react-i18next";
 
 const Container = styled(Box)`
   width: 100%;
@@ -74,6 +75,7 @@ const RelatedProductCard = ({
   newPrice,
 }) => {
   const { xs } = useResponsive();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const propsDescription = useMemo(
@@ -154,7 +156,7 @@ const RelatedProductCard = ({
             fontWeight={700}
             color="#584207"
           >
-            See more
+            {t("see_more")}
           </Typography>
         </SeeMore>
       </DetailContainer>

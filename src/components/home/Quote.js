@@ -5,6 +5,7 @@ import { Box } from "../../styles/common";
 import { Image, Row, Col, Space } from "antd";
 import quote_image from "../../assets/image/mock_bamboo.jpg";
 import Typography from "../../center_components/Typography";
+import { useTranslation } from "react-i18next";
 
 const RowContainer = styled(Row)`
   background-color: #fff;
@@ -101,6 +102,7 @@ const QuoteContent = styled(Box)`
 
 const Quote = () => {
   const { xxl, md, xs } = useResponsive();
+  const { t } = useTranslation();
 
   const propsTitle = useMemo(
     () => ({
@@ -119,9 +121,9 @@ const Quote = () => {
           <ImageWrapper>
             <ImageContainer src={quote_image} preview={false} md={md} xs={xs} />
             <QuoteTitle direction="vertical" size={xs ? 10 : 40} xs={xs}>
-              <Typography {...propsTitle}>SIMPLE</Typography>
-              <Typography {...propsTitle}>LOCAL</Typography>
-              <Typography {...propsTitle}>NATURE</Typography>
+              <Typography {...propsTitle}>{t("simple")}</Typography>
+              <Typography {...propsTitle}>{t("local")}</Typography>
+              <Typography {...propsTitle}>{t("nature")}</Typography>
             </QuoteTitle>
           </ImageWrapper>
           <QuoteContent
@@ -138,11 +140,7 @@ const Quote = () => {
               color="#584207"
               whiteSpace="initial"
             >
-              From the love of local wisdom that tells about the way of the
-              community village life. Create handicrafts that come from nature
-              and diverse cultures. Each piece is hand-woven with natural dyes.
-              Take the time to do it carefully. We produce various appliances
-              for nature lovers.
+              {t("quote_content")}
             </Typography>
           </QuoteContent>
         </BoxContainer>

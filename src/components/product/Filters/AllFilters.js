@@ -10,6 +10,7 @@ import Categories from "./Categories";
 import Price from "./Price";
 import { Box } from "../../../styles/common";
 import Typography from "../../../center_components/Typography";
+import { useTranslation } from "react-i18next";
 // import Color from "./Color";
 // import Size from "./Size";
 
@@ -72,6 +73,7 @@ const AllFilters = ({
   setPrice,
 }) => {
   const { md, xs } = useResponsive();
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   // const [colorList, setColorList] = useState([]);
   // const [sizeList, setSizeList] = useState([]);
@@ -124,7 +126,7 @@ const AllFilters = ({
                 fontWeight={700}
                 color="#584207"
               >
-                Confirm
+                {t("confirm")}
               </Typography>
             </ConfirmButton>
           </FilterDrawer>

@@ -11,6 +11,7 @@ import Description from "./Description";
 import ShortListProduct from "../../../center_components/product/ShortListProduct";
 import useSWR from "swr";
 import { LoadingIcon } from "../../../styles/common";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   margin: 145px 0 150px;
@@ -85,6 +86,7 @@ const RowContainer = styled(Row)`
 const ProductDetail = () => {
   const { md, xs } = useResponsive();
   const { language } = useLanguage();
+  const { t } = useTranslation();
   const productId = useQuery("productId");
   const [activeSize, setActiveSize] = useState("");
   const [activeColor, setActiveColor] = useState("");
@@ -112,12 +114,12 @@ const ProductDetail = () => {
   const breadcrumbList = useMemo(
     () => (
       <Breadcrumb separator="|">
-        <Breadcrumb.Item>CATEGORIES</Breadcrumb.Item>
+        <Breadcrumb.Item>{t("categories")}</Breadcrumb.Item>
         <Breadcrumb.Item>{product?.category?.[language]}</Breadcrumb.Item>
         <Breadcrumb.Item>{product?.productName?.[language]}</Breadcrumb.Item>
       </Breadcrumb>
     ),
-    [language, product?.category, product?.productName]
+    [language, product?.category, product?.productName, t]
   );
 
   if (!product) return <LoadingIcon />;
@@ -140,7 +142,9 @@ const ProductDetail = () => {
                   productName={product?.productName?.[language]}
                   productOwner={product?.productOwner?.[language]}
                   sizes={product?.isOption && product?.sizes}
-                  colorList={product?.isOption && activeColor && product?.images}
+                  colorList={
+                    product?.isOption && activeColor && product?.images
+                  }
                   price={product?.price}
                   status={product?.status?.[language]}
                   activeSize={activeSize}
@@ -155,7 +159,7 @@ const ProductDetail = () => {
           <Col offset={xs ? 0 : 2} />
         </Row>
         <ShortListProduct
-          title="Related Products"
+          title={t("related_products")}
           hiddenViewMore={true}
           paddingBottom="0px"
         />

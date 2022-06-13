@@ -5,6 +5,7 @@ import { Box } from "../../styles/common";
 import Typography from "../../center_components/Typography";
 import Icon from "@ant-design/icons";
 import { ReactComponent as flower_icon } from "../../assets/icons/flower.svg";
+import { useTranslation } from "react-i18next";
 
 const StoryContainer = styled(Box)`
   position: relative;
@@ -42,6 +43,7 @@ const IconFlower = styled(Icon)`
 
 const Story = () => {
   const { md, xs } = useResponsive();
+  const { t } = useTranslation();
 
   return (
     <StoryContainer justify="center" align="center" md={md} xs={xs}>
@@ -58,11 +60,7 @@ const Story = () => {
         color="#044700"
         whiteSpace="initial"
       >
-        Products from local handicrafts, It is a natural product called
-        <strong>“Muiizin”</strong> Whether it is woven fabrics, scarves,
-        tablecloths, cloth bags, woven bags. They were all created from the
-        heart of <strong>“Muiizin”</strong> who wanted to support villagers in
-        communities in every region of Thailand.
+        {t("story_content")}
       </Typography>
       <IconFlower
         component={flower_icon}

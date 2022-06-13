@@ -11,6 +11,7 @@ import OrderBy from "./OrderBy";
 import useSWR from "swr";
 import { LoadingIcon } from "../../styles/common";
 import { useDebounce } from "use-debounce";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   margin: 168px 0 125px;
@@ -107,6 +108,7 @@ const PaginationContainer = styled(Pagination)`
 const ProductList = () => {
   const { width, md, xs } = useResponsive();
   const { language } = useLanguage();
+  const { t } = useTranslation();
   const [orderBy, setOrderBy] = useState("asc");
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -198,7 +200,7 @@ const ProductList = () => {
         </ColProduct>
       ));
     } else {
-      if (isEmpty) return <EmptyData description="ไม่พบสินค้า" />;
+      if (isEmpty) return <EmptyData description={t("not_found_product")} />;
       return productList?.data?.map((product) => (
         <ColProduct span={spanProduct} key={product.productId}>
           <ProductCard
@@ -212,7 +214,7 @@ const ProductList = () => {
         </ColProduct>
       ));
     }
-  }, [language, productList, spanProduct, isEmpty]);
+  }, [language, productList, spanProduct, isEmpty, t]);
 
   if (isLoading) return <LoadingIcon />;
 

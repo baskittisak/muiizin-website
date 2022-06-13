@@ -3,6 +3,7 @@ import { useResponsive } from "../../../utils/useResponsive";
 import styled, { css } from "styled-components";
 import Typography from "../../../center_components/Typography";
 import { Space } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   ${({ xs }) =>
@@ -102,6 +103,7 @@ const ReadButton = styled.div`
 
 const Description = ({ description }) => {
   const { md, xs } = useResponsive();
+  const { t } = useTranslation();
   const [more, setMore] = useState(false);
 
   return (
@@ -115,7 +117,7 @@ const Description = ({ description }) => {
             color="#044700"
             uppercase
           >
-            Description
+            {t("description")}
           </Typography>
           <Line md={md} />
         </Space>
@@ -135,7 +137,7 @@ const Description = ({ description }) => {
             color="#8AA399"
             onClick={() => setMore((prev) => !prev)}
           >
-            {more ? "Read less" : "Read more"}
+            {more ? t("read_less") : t("read_more")}
           </Typography>
         </ReadButton>
       )}

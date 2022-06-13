@@ -8,6 +8,7 @@ import { ReactComponent as line_icon } from "../../../assets/icons/line_order.sv
 import Typography from "../../../center_components/Typography";
 import Size from "./options/Size";
 import Color from "./options/Color";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 100%;
@@ -149,6 +150,7 @@ const Details = ({
   setActiveColor,
 }) => {
   const { width, xs } = useResponsive();
+  const { t } = useTranslation();
 
   const isMd = useMemo(() => {
     return width < 1150 ? 1 : 0;
@@ -244,7 +246,7 @@ const Details = ({
             color="#333333"
             uppercase
           >
-            Pirce
+            {t("price")}
           </Typography>
           <Typography
             fontSize={isMd ? 22 : 36}
@@ -265,7 +267,7 @@ const Details = ({
             fontWeight={700}
             color="#FFFFFF"
           >
-            Order via
+            {t("orde_via")}
           </Typography>
           <IconLine component={line_icon} md={isMd} xs={xs} />
         </Box>

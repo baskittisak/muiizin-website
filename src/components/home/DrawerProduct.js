@@ -9,6 +9,7 @@ import { ReactComponent as close_icon } from "../../assets/icons/close.svg";
 import Typography from "../../center_components/Typography";
 import RelatedProductCard from "../../center_components/product/RelatedProductCard";
 import useSWR from "swr";
+import { useTranslation } from "react-i18next";
 
 const DrawerContainer = styled(Drawer)`
   .ant-drawer-header {
@@ -83,6 +84,7 @@ const TitleMobile = styled(BoxTitle)`
 const DrawerProduct = ({ visible, bannerId, bannerImage, onClose }) => {
   const { xs } = useResponsive();
   const { language } = useLanguage();
+  const { t } = useTranslation();
 
   const apiProductList = useMemo(() => {
     return bannerId && `/list/banner/product/${bannerId}`;
@@ -101,14 +103,14 @@ const DrawerProduct = ({ visible, bannerId, bannerImage, onClose }) => {
             color="#044700"
             uppercase
           >
-            Related Products
+            {t("related_products")}
           </Typography>
           <Line />
         </Space>
         <Icon component={close_icon} onClick={onClose} />
       </BoxTitle>
     ),
-    [onClose]
+    [t, onClose]
   );
 
   const titleMobile = useMemo(
@@ -122,14 +124,14 @@ const DrawerProduct = ({ visible, bannerId, bannerImage, onClose }) => {
             color="#044700"
             uppercase
           >
-            Related Products
+            {t("related_products")}
           </Typography>
           <Line align="center" />
         </Space>
         <Icon component={close_icon} onClick={onClose} />
       </TitleMobile>
     ),
-    [xs, onClose]
+    [xs, t, onClose]
   );
 
   return (

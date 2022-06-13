@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { Input, Slider, Space } from "antd";
 import FiltersCard from "./FiltersCard";
 import Typography from "../../../center_components/Typography";
+import { useTranslation } from "react-i18next";
 
 const SpaceContainer = styled(Space)`
   width: 100%;
@@ -51,6 +52,7 @@ const InputContainer = styled(Input)`
 
 const Price = ({ maxPrice, price, setPrice }) => {
   const { md } = useResponsive();
+  const { t } = useTranslation();
 
   const onSetPrice = useCallback(
     (index, value) => {
@@ -64,7 +66,7 @@ const Price = ({ maxPrice, price, setPrice }) => {
   );
 
   return (
-    <FiltersCard title="PRICE">
+    <FiltersCard title={t("price")}>
       <SpaceContainer direction="vertical" size={md ? 12 : 20}>
         <Range
           min={1}

@@ -6,6 +6,7 @@ import Icon from "@ant-design/icons";
 import { ReactComponent as dropdown_icon } from "../../assets/icons/dropdown.svg";
 import Typography from "../../center_components/Typography";
 import { useResponsive } from "../../utils/useResponsive";
+import { useTranslation } from "react-i18next";
 
 const DropdownContainer = styled(Dropdown)`
   cursor: pointer;
@@ -48,6 +49,7 @@ const menuList = [
 const OrderBy = ({ orderBy, setOrderBy }) => {
   const { md } = useResponsive();
   const { language } = useLanguage();
+  const { t } = useTranslation();
 
   const menuActive = useMemo(() => {
     return menuList.find((menu) => menu.key === orderBy).value[language];
@@ -80,7 +82,7 @@ const OrderBy = ({ orderBy, setOrderBy }) => {
         lineHeight={md ? 13 : 22}
         color="#828282"
       >
-        ORDER BY :
+        {t("order_by")} :
       </Typography>
       <DropdownContainer overlay={menuOverlay}>
         <Space size={15}>

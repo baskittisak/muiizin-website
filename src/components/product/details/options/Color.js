@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { Box } from "../../../../styles/common";
 import { Space } from "antd";
 import Typography from "../../../../center_components/Typography";
+import { useTranslation } from "react-i18next";
 
 const LineOption = styled.div`
   width: 20px;
@@ -55,6 +56,7 @@ const DisplayColor = styled.div`
 
 const Color = ({ colorList, activeColor, setActiveColor }) => {
   const { width } = useResponsive();
+  const { t } = useTranslation();
 
   const isMd = useMemo(() => {
     return width < 1150 ? 1 : 0;
@@ -88,7 +90,7 @@ const Color = ({ colorList, activeColor, setActiveColor }) => {
           color="#4F4F4F"
           uppercase
         >
-          Color
+          {t("color")}
         </Typography>
         <LineOption md={isMd} />
       </Space>
