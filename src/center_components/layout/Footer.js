@@ -9,6 +9,7 @@ import { ReactComponent as line_icon } from "../../assets/icons/line.svg";
 import { ReactComponent as instagram_icon } from "../../assets/icons/instagram.svg";
 
 const FooterContainer = styled(Row)`
+  width: 100%;
   height: 125px;
   background-color: #f7f7f7;
   padding: 50px 0;

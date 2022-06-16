@@ -2,8 +2,14 @@ import { memo } from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { Box } from "../../styles/common";
 
-const Container = styled.div`
+const Container = styled(Box)`
+  height: 100vh;
+`;
+
+const Body = styled.div`
+  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 
@@ -14,9 +20,11 @@ const Container = styled.div`
 
 const Layout = ({ children }) => {
   return (
-    <Container>
-      <Navbar />
-      {children}
+    <Container direction="column">
+      <Body>
+        <Navbar />
+        {children}
+      </Body>
       <Footer />
     </Container>
   );
