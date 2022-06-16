@@ -102,6 +102,11 @@ const SliderScroll = styled(Space)`
   align-items: flex-start;
 `;
 
+const EmptyProduct = styled(Box)`
+  width: 100%;
+  height: 150px;
+`;
+
 const ShortListProduct = ({
   title,
   productList = [],
@@ -123,6 +128,10 @@ const ShortListProduct = ({
       ? 3
       : 4;
   }, [width, md]);
+
+  const isEmpty = useMemo(() => {
+    return productList?.length === 0;
+  }, [productList?.length]);
 
   const isHiddenArrow = useMemo(() => {
     return productList?.length <= 4;
@@ -183,6 +192,11 @@ const ShortListProduct = ({
             </Space>
           )}
         </Title>
+        {isEmpty && (
+          <EmptyProduct justify="center" align="center">
+            <Typography>{t("product_coming_soon")}</Typography>
+          </EmptyProduct>
+        )}
         {xs === 0 && (
           <Slider
             ref={slider}
@@ -194,7 +208,7 @@ const ShortListProduct = ({
           </Slider>
         )}
         {xs === 1 && <SliderScroll size={20}>{displaProductList}</SliderScroll>}
-        {!hiddenViewMore && (
+        {!isEmpty && !hiddenViewMore && (
           <ViewMore md={md} onClick={() => navigate("/product")}>
             <Typography
               fontSize={md ? 12 : 18}

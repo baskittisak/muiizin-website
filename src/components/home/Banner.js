@@ -5,6 +5,9 @@ import { Image } from "antd";
 import DrawerProduct from "./DrawerProduct";
 import Slider from "react-slick";
 import { useLanguage } from "../../utils/useLanguage";
+import { Box } from "../../styles/common";
+import Typography from "../../center_components/Typography";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   margin-top: 120px;
@@ -54,9 +57,28 @@ const ImageContainer = styled(Image)`
     `};
 `;
 
+const EmptyImage = styled(Box)`
+  width: 100%;
+  height: calc(100vh - 120px);
+  background-color: #04470040;
+
+  ${({ md }) =>
+    md &&
+    css`
+      height: 350px;
+    `};
+
+  ${({ xs }) =>
+    xs &&
+    css`
+      height: 240px;
+    `};
+`;
+
 const Banner = ({ bannerList }) => {
   const { md, xs } = useResponsive();
   const { language } = useLanguage();
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [bannerId, setBannerId] = useState(0);
   const [bannerImage, setBannerImage] = useState("");
@@ -72,6 +94,10 @@ const Banner = ({ bannerList }) => {
     setBannerId(0);
     setBannerImage("");
   }, []);
+
+  const isEmpty = useMemo(() => {
+    return bannerList?.length === 0;
+  }, [bannerList?.length]);
 
   const displayBannerList = useMemo(() => {
     return bannerList?.map((banner) => (
@@ -92,15 +118,29 @@ const Banner = ({ bannerList }) => {
 
   return (
     <Container md={md} xs={xs}>
-      <Slider slidesToShow={1} slidesToScroll={1} arrows={false} dots={true}>
-        {displayBannerList}
-      </Slider>
-      <DrawerProduct
-        visible={visible}
-        bannerId={bannerId}
-        bannerImage={bannerImage}
-        onClose={onClose}
-      />
+      {isEmpty && (
+        <EmptyImage justify="center" align="center" md={md} xs={xs}>
+          <Typography>{t("banner_coming_soon")}</Typography>
+        </EmptyImage>
+      )}
+      {!isEmpty && (
+        <>
+          <Slider
+            slidesToShow={1}
+            slidesToScroll={1}
+            arrows={false}
+            dots={true}
+          >
+            {displayBannerList}
+          </Slider>
+          <DrawerProduct
+            visible={visible}
+            bannerId={bannerId}
+            bannerImage={bannerImage}
+            onClose={onClose}
+          />
+        </>
+      )}
     </Container>
   );
 };

@@ -21,5 +21,7 @@
   "color": "สี",
   "description": "รายละเอียด",
   "read_less": "อ่านน้อยลง",
-  "read_more": "อ่านเพิ่มเติม"
+  "read_more": "อ่านเพิ่มเติม",
+  "banner_coming_soon": "แบนเนอร์กำลังจะมาเร็วๆ นี้",
+  "product_coming_soon": "สินค้ากำลังจะมาเร็วๆ นี้"
 }
