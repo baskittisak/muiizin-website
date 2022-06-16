@@ -119,16 +119,6 @@ const ShortListProduct = ({
   const navigate = useNavigate();
   const slider = useRef();
 
-  const sliderNumber = useMemo(() => {
-    return md && width >= 800
-      ? 4
-      : (md && (width < 600 || width >= 800)) || (!md && width < 1024)
-      ? 2
-      : (md && (width < 800 || width >= 600)) || (!md && width < 1350)
-      ? 3
-      : 4;
-  }, [width, md]);
-
   const isEmpty = useMemo(() => {
     return productList?.length === 0;
   }, [productList?.length]);
@@ -136,6 +126,18 @@ const ShortListProduct = ({
   const isHiddenArrow = useMemo(() => {
     return productList?.length <= 4;
   }, [productList?.length]);
+
+  const sliderNumber = useMemo(() => {
+    const number = productList?.length;
+    if (isHiddenArrow) return number;
+    return md && width >= 800
+      ? 4
+      : (md && (width < 600 || width >= 800)) || (!md && width < 1024)
+      ? 2
+      : (md && (width < 800 || width >= 600)) || (!md && width < 1350)
+      ? 3
+      : 4;
+  }, [width, md, isHiddenArrow, productList?.length]);
 
   const displaProductList = useMemo(
     () =>
