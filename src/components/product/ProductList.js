@@ -132,7 +132,7 @@ const ProductList = () => {
   const { data: productList } = useSWR(apiProductList);
 
   useEffect(() => {
-    maxPrice && setPrice([1, maxPrice?.maxPrice]);
+    maxPrice && setPrice([0, maxPrice?.maxPrice || 1]);
   }, [maxPrice]);
 
   useEffect(() => {

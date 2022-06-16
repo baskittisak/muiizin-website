@@ -69,8 +69,8 @@ const Price = ({ maxPrice, price, setPrice }) => {
     <FiltersCard title={t("price")}>
       <SpaceContainer direction="vertical" size={md ? 12 : 20}>
         <Range
-          min={1}
-          max={maxPrice}
+          min={0}
+          max={maxPrice || 1}
           value={price}
           range
           onChange={setPrice}
@@ -80,8 +80,8 @@ const Price = ({ maxPrice, price, setPrice }) => {
         <SpaceContainer size={28}>
           <InputContainer
             md={md}
-            min={1}
-            max={maxPrice}
+            min={0}
+            max={maxPrice || 1}
             type="number"
             value={price[0]}
             onChange={(e) => onSetPrice(0, e.target.value)}
@@ -97,8 +97,8 @@ const Price = ({ maxPrice, price, setPrice }) => {
           </Typography>
           <InputContainer
             md={md}
-            min={1}
-            max={maxPrice}
+            min={0}
+            max={maxPrice || 1}
             type="number"
             value={price[1]}
             onChange={(e) => onSetPrice(1, e.target.value)}

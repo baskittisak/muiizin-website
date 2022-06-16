@@ -1,5 +1,5 @@
 import { useLanguage } from "../../../utils/useLanguage";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Space } from "antd";
 import Checkbox from "../../../center_components/Checkbox";
@@ -13,6 +13,10 @@ const SpaceContainer = styled(Space)`
 const Categories = ({ categories, categorieList, setCategorieList }) => {
   const { language } = useLanguage();
   const { t } = useTranslation();
+
+  const isOnlyAll = useMemo(() => {
+    return categories?.length === 1;
+  }, [categories?.length]);
 
   useEffect(() => {
     if (categories) {
@@ -63,7 +67,7 @@ const Categories = ({ categories, categorieList, setCategorieList }) => {
             id={categorie?.categoryId}
             value={categorie?.category?.[language]}
             checked={categorie?.checked}
-            onChange={onChange}
+            onChange={(categoryId) => !isOnlyAll && onChange(categoryId)}
           />
         ))}
       </SpaceContainer>
