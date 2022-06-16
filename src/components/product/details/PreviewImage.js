@@ -171,6 +171,14 @@ const PreviewImage = ({ images, activeColor }) => {
     }
   }, [activeColor, images]);
 
+  const totalImage = useMemo(() => {
+    return imageList?.length;
+  }, [imageList?.length]);
+
+  const isImageShow = useMemo(() => {
+    return totalImage <= 4;
+  }, [totalImage]);
+
   const displayImageList = useMemo(
     () =>
       imageList?.map((image, index) => (
@@ -257,7 +265,7 @@ const PreviewImage = ({ images, activeColor }) => {
         <SliderContainer md={isMd}>
           <Slider
             ref={slider}
-            slidesToShow={width < 680 ? 2 : 3}
+            slidesToShow={isImageShow ? totalImage - 1 : width < 680 ? 2 : 3}
             slidesToScroll={1}
             arrows={true}
             nextArrow={<ArrowRight isMd={isMd} slider={slider} />}
