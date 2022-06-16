@@ -16,6 +16,21 @@ import { useTranslation } from "react-i18next";
 const Container = styled.div`
   margin: 168px 0 125px;
 
+  ${({ empty, md, xs }) =>
+    empty &&
+    css`
+      height: calc(100% - 418px);
+
+      ${md &&
+      css`
+        height: calc(100% - 265px);
+      `};
+      ${xs &&
+      css`
+        height: calc(100% - 170px);
+      `};
+    `};
+
   ${({ md }) =>
     md &&
     css`
@@ -220,7 +235,7 @@ const ProductList = () => {
 
   return (
     <Layout>
-      <Container md={md} xs={xs}>
+      <Container md={md} xs={xs} empty={isEmpty}>
         <Row>
           <Col span={20} offset={2}>
             <Row>
