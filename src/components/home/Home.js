@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import Layout from "../../center_components/layout/Layout";
 import Banner from "./Banner";
 import Quote from "./Quote";
@@ -14,11 +14,7 @@ const Home = () => {
   const { data: bannerList } = useSWR("/list/banner");
   const { data: productList } = useSWR("/list/product/arrivals");
 
-  const isLoading = useMemo(() => {
-    return !bannerList || !productList;
-  }, [bannerList, productList]);
-
-  if (isLoading) return <LoadingIcon />;
+  if (!bannerList) return <LoadingIcon />;
 
   return (
     <Layout>

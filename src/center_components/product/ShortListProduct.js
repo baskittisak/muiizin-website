@@ -4,7 +4,7 @@ import { useResponsive } from "../../utils/useResponsive";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Box } from "../../styles/common";
-import { Row, Col, Space } from "antd";
+import { Row, Col, Space, Skeleton } from "antd";
 import Icon from "@ant-design/icons";
 import { ReactComponent as arrow_active_icon } from "../../assets/icons/arrow_active.svg";
 import Slider from "react-slick";
@@ -109,7 +109,7 @@ const EmptyProduct = styled(Box)`
 
 const ShortListProduct = ({
   title,
-  productList = [],
+  productList,
   hiddenViewMore,
   paddingBottom,
 }) => {
@@ -119,17 +119,24 @@ const ShortListProduct = ({
   const navigate = useNavigate();
   const slider = useRef();
 
-  const isEmpty = useMemo(() => {
-    return productList?.length === 0;
+  const isLoading = useMemo(() => {
+    return productList === undefined;
+  }, [productList]);
+
+  const totalProduct = useMemo(() => {
+    return productList?.length;
   }, [productList?.length]);
+
+  const isEmpty = useMemo(() => {
+    return totalProduct === 0;
+  }, [totalProduct]);
 
   const isHiddenArrow = useMemo(() => {
-    return productList?.length <= 4;
-  }, [productList?.length]);
+    return totalProduct <= 4;
+  }, [totalProduct]);
 
   const sliderNumber = useMemo(() => {
-    const number = productList?.length;
-    if (isHiddenArrow) return number;
+    if (isHiddenArrow) return totalProduct;
     return md && width >= 800
       ? 4
       : (md && (width < 600 || width >= 800)) || (!md && width < 1024)
@@ -137,7 +144,7 @@ const ShortListProduct = ({
       : (md && (width < 800 || width >= 600)) || (!md && width < 1350)
       ? 3
       : 4;
-  }, [width, md, isHiddenArrow, productList?.length]);
+  }, [width, md, isHiddenArrow, totalProduct]);
 
   const displaProductList = useMemo(
     () =>
@@ -194,6 +201,11 @@ const ShortListProduct = ({
             </Space>
           )}
         </Title>
+        {isLoading && (
+          <EmptyProduct justify="center" align="center">
+            <Skeleton active />
+          </EmptyProduct>
+        )}
         {isEmpty && (
           <EmptyProduct justify="center" align="center">
             <Typography>{t("product_coming_soon")}</Typography>
