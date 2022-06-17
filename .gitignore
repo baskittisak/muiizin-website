@@ -18,5 +18,7 @@ bin-release/
 # information for Eclipse / Flash Builder.
 
 /node_modules
-
+/build
 .env
+.firebase
+.firebaserc
