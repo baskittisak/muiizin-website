@@ -142,14 +142,14 @@ const DrawerProduct = ({ visible, bannerId, bannerImage, onClose }) => {
       closeIcon={null}
       xs={xs}
     >
-      {!productList && (
-        <Space direction="vertical" size={xs ? 40 : 44}>
-          <Skeleton active />
-          <Skeleton active />
-          <Skeleton active />
-        </Space>
-      )}
       {xs === 1 && <ImageContainer src={bannerImage} preview={false} />}
+      {!productList && (
+        <>
+          <Skeleton active />
+          <Skeleton active />
+          <Skeleton active />
+        </>
+      )}
       {productList && (
         <Space direction="vertical" size={xs ? 40 : 44}>
           {productList.map((product) => (
