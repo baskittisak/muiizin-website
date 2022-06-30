@@ -71,9 +71,32 @@ const Footer = () => {
     <FooterContainer md={md} xs={xs}>
       <Col span={20} offset={2}>
         <SpaceSocial size={xs ? 15 : md ? 20 : 40} xs={xs}>
-          <IconSocial component={facebook_icon} md={md} xs={xs} />
-          <IconSocial component={line_icon} md={md} xs={xs} />
-          <IconSocial component={instagram_icon} md={md} xs={xs} />
+          <IconSocial
+            component={facebook_icon}
+            md={md}
+            xs={xs}
+            onClick={() =>
+              window.open(
+                "https://www.facebook.com/%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%9B%E0%B9%8B%E0%B8%B2%E0%B8%9C%E0%B9%89%E0%B8%B2%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87-Muiizin-103456735624036/"
+              )
+            }
+          />
+          <IconSocial
+            component={line_icon}
+            md={md}
+            xs={xs}
+            onClick={() => window.open("https://lin.ee/RaywQDP")}
+          />
+          <IconSocial
+            component={instagram_icon}
+            md={md}
+            xs={xs}
+            onClick={() =>
+              window.open(
+                "https://www.instagram.com/muziin2022/?igshid=YzAyZWRlMzg="
+              )
+            }
+          />
         </SpaceSocial>
         <Typography
           fontSize={xs ? 12 : md ? 14 : 24}
