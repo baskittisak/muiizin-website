@@ -139,7 +139,8 @@ const ProductList = () => {
     const isAll = categoryIds.includes(0) || categoryIds.length === 0;
     const categoryQuery = !isAll ? `&categoryIds=${categoryIds}` : "";
     const searchQuery = searchValue ? `&search=${searchValue}` : "";
-    return `/list/product?page=${page}&sort=${orderBy}&language=${language}&price=${priceRange}${searchQuery}${categoryQuery}`;
+    const priceQuery = priceRange ? `&price=${priceRange}` : "";
+    return `/list/product?page=${page}&sort=${orderBy}&language=${language}${priceQuery}${searchQuery}${categoryQuery}`;
   }, [categorieList, language, orderBy, page, searchValue, priceRange]);
 
   const { data: categories } = useSWR("/list/category");
