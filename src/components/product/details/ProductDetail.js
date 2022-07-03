@@ -101,7 +101,7 @@ const ProductDetail = () => {
     return (
       productId &&
       product?.categoryId &&
-      `/list/product/related/${product?.categoryId}`
+      `/list/product/related?categoryId=${product?.categoryId}&productId=${productId}`
     );
   }, [productId, product?.categoryId]);
 
@@ -168,12 +168,14 @@ const ProductDetail = () => {
           </Col>
           <Col offset={xs ? 0 : 2} />
         </Row>
-        <ShortListProduct
-          title={t("related_products")}
-          productList={relatedProducts}
-          hiddenViewMore={true}
-          paddingBottom="0px"
-        />
+        {relatedProducts?.length !== 0 && (
+          <ShortListProduct
+            title={t("related_products")}
+            productList={relatedProducts}
+            hiddenViewMore={true}
+            paddingBottom="0px"
+          />
+        )}
       </Container>
     </Layout>
   );
